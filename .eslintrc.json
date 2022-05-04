@@ -1,0 +1,53 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "airbnb/base",
+        "plugin:jsx-a11y/recommended"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 6,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "jsx-a11y"
+    ],
+    "rules": {
+        "no-console": "off", //error на продакшн
+        "linebreak-style": 0,
+        "comma-dangle": ["error", {
+            "arrays": "always-multiline",
+            "objects": "always-multiline",
+            "imports": "never",
+            "exports": "never",
+            "functions": "never"
+        }],
+        "semi": "error",
+        "no-plusplus": "off",
+        "eol-last": "off",
+        "max-len": ["error", 120, {
+            "ignoreUrls": true
+        }],
+        "no-tabs": "off",
+        "no-alert": "warn",
+        "prefer-destructuring": "off",
+//        "indent": [2, "tab"],
+        "no-param-reassign": "off",
+        "object-curly-newline": "off",
+        "prefer-const": ["error", {
+            "destructuring": "all",
+            "ignoreReadBeforeAssign": false
+        }],
+        "jsx-a11y/click-events-have-key-events": "off"
+    }
+}
