@@ -1,1 +1,11 @@
-//SCSS work it!
+body {
+  background: #E5E5E5;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 36px;
+  max-width: 1010px;
+  background-color: #ffffff;
+}

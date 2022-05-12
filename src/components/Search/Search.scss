@@ -1,0 +1,19 @@
+.search_container {
+  width: 100%;
+  height: auto;
+  margin-bottom: 32px;
+}
+
+.search_input {
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: 12px;
+  height: 40px;
+  font-family: 'Inter', serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  border: 1px solid #D9D9D9;
+  border-radius: 4px;
+}

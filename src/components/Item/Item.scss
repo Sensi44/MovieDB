@@ -1,0 +1,44 @@
+.movie_item {
+  display: flex;
+  justify-content: space-between;
+  max-width: 454px;
+  height: 281px;
+  box-shadow: 5px 5px 2px 2px rgba(150,150,150,0.10);
+  margin-bottom: 35px;
+}
+
+.movie_item:hover {
+  box-shadow: 5px 5px 2px 2px rgba(250,150,150,0.10);
+}
+
+.item_left {
+  min-width: 183px;
+  height: 100%;
+}
+
+.item_right {
+  width: 100%;
+  margin-left: 20px;
+  align-items: stretch;
+  align-self: stretch;
+}
+
+.item_data {
+
+}
+
+.item_genre {
+
+}
+
+.item_text {
+
+}
+
+.item_stars {
+
+}
+
+.item_star {
+
+}
