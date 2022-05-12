@@ -1,9 +1,11 @@
 import React from 'react';
+// eslint-disable-next-line no-unused-vars
 import Services from '../../Services';
+
 import Header from '../Header';
 import ItemList from '../Item-list';
 import Search from '../Search';
-import Item from '../Item';
+import Pages from '../Pages';
 
 import './App.scss';
 
@@ -13,9 +15,7 @@ function App() {
       <Header />
       <Search />
       <ItemList />
-      <Item/>
-      <br/>
-      <Services />
+      <Pages />
     </div>
   );
 }

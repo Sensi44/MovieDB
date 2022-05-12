@@ -4,10 +4,10 @@ import './Header.scss';
 
 function Header() {
   return (
-    <div className="header_tabs">
-      <div className="header_tab">Search</div>
-      <div className="header_tab">Rated</div>
-    </div>
+    <ul className="header_tabs">
+      <li className="header_tab">Search</li>
+      <li className="header_tab">Rated</li>
+    </ul>
   );
 }
 

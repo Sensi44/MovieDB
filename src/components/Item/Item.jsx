@@ -6,21 +6,29 @@ function Item() {
   return (
     <div className="movie_item">
       <div className="item_left">
-        <img src="#" alt=""/>
+        <img className="item_img" src="#" alt=""/>
       </div>
 
       <div className="item_right">
-        <h3>Название фильма</h3>
+        <div className="item_top">
+          <h5>The way back</h5>
+          <div className="item_rating">6.6</div>
+        </div>
 
-        <data className="item_data">5ое марта 2020</data>
+        <data className="item_data">March 5, 2029</data>
 
-        <ul className="item_genre">
-          <li>Action</li>
-          <li>Drama</li>
+        <ul className="item_genres">
+          <li className="item_genre">Action</li>
+          <li className="item_genre">Drama</li>
         </ul>
 
         <div className="item_text">
-          Lorem ipsum
+          A former basketball all-star,
+          who has lost his wife and family
+          foundation in a struggle with
+          addiction attempts to regain his
+          soul and salvation by becoming
+          the coach of a disparate ethnically mixed high ...
         </div>
 
         <div className="item_stars">

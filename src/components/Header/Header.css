@@ -1,5 +1,3 @@
-//SCSS work it!
-
 .header_tabs {
   width: 130px;
   background: #FFFFFF;
@@ -13,14 +11,14 @@
   width: 65px;
   display: inline-block;
   height: 22px;
-  font-family: 'Inter', serif;
+  font-family: "Inter", serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 22px;
   text-align: center;
   padding-bottom: 10px;
-  border-bottom: 2px solid rgba(0,0,0,0);
+  border-bottom: 2px solid rgba(0, 0, 0, 0);
   cursor: pointer;
 }
 
@@ -28,3 +26,5 @@
   color: #1890FF;
   border-bottom: 2px solid #1890FF;
 }
+
+/*# sourceMappingURL=Header.css.map */
