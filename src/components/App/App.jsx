@@ -6,6 +6,7 @@ import Header from '../Header';
 import ItemList from '../Item-list';
 import Search from '../Search';
 import Pages from '../Pages';
+import TestComponent from '../TestComponent';
 
 import './App.scss';
 
@@ -16,6 +17,7 @@ function App() {
       <Search />
       <ItemList />
       <Pages />
+      <TestComponent />
     </div>
   );
 }
