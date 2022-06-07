@@ -25,12 +25,13 @@ function TestComponent() {
     return result;
   };
 
-  const getAll = (e) => {
-    console.log(e);
-    getShip('people/1/')
-      .then((body) => setTodoData({
-        name: body.name,
-      }));
+  const getPeople = async () => {
+    const res = await getShip('people/1/');
+    console.log(res);
+    setTodoData({
+      name: res.height,
+    });
+    return res;
   };
 
   // Аналог ComponentDidUnmount
@@ -50,7 +51,7 @@ function TestComponent() {
   return (
     <div className='test-component'>
       <p>{shipName}</p>
-      <button onClick={getAll}>123</button>
+      <button onClick={getPeople}>Люк я твоя мать</button>
     </div>
   );
 }
