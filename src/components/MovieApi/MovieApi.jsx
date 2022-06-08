@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-import './TestComponent.scss';
+import './MovieApi.scss';
 
 // Получаем данные сервера и отображаем на странице
 // Добавлена обработка ошибок
 
-function TestComponent() {
+function MovieApi() {
   const [todoData, setTodoData] = useState({
     name: [],
   });
@@ -56,4 +56,4 @@ function TestComponent() {
   );
 }
 
-export default TestComponent;
+export default MovieApi;

@@ -6,7 +6,7 @@ import Item from '../Item';
 function ItemList() {
   return (
     <div className="items_container">
-      <Item />
+      <Item test = {222}/>
       <Item />
       <Item />
       <Item />
