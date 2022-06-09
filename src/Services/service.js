@@ -1,6 +1,30 @@
 // eslint-disable-next-line import/prefer-default-export
 const apiBase = 'https://swapi.dev/api/';
 
+// Поиск по фильмам, основной
+export async function searchMovies() {
+  const res = await fetch('https://api.themoviedb.org/3/search/movie?api_key=cd6100594cd5dced56b923866a3e33d9&language=en-US&query=return&page=1&include_adult=false');
+  if (!res.ok) {
+    throw new Error(`Could not fetch Movies , received ${res.status}`);
+  }
+  const body = await res.json();
+  console.log(body);
+  return body;
+}
+
+// Обрезка строки
+export function truncate(str, maxlength) {
+  console.log('truncate');
+  let temp = str.split(' ').slice(0, maxlength).join(' ');
+
+  temp = temp.includes('.', temp.length - 1) ? temp.slice(0, temp.length - 1) : temp;
+  temp = temp.includes('?', temp.length - 1) ? temp.slice(0, temp.length - 1) : temp;
+  temp = temp.includes('!', temp.length - 1) ? temp.slice(0, temp.length - 1) : temp;
+  temp = temp.includes(',', temp.length - 1) ? temp.slice(0, temp.length - 1) : temp;
+
+  return `${temp} …`;
+}
+
 export async function getResourse() {
   const res = await fetch(`${apiBase}/planets/1`);
   if (!res.ok) {

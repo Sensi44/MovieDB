@@ -1,40 +1,26 @@
-import React, { useState, useEffect } from 'react';
+// eslint-disable-next-line no-unused-vars
+import React, { useState } from 'react';
 
-import { getPeople } from '../../Services/service';
+import { truncate } from '../../Services/service';
 import './Item.scss';
 
-function Item() {
-  const [todoData, setTodoData] = useState({
-    id: 2,
-    peopleHeight: null,
-    peopleName: null,
-  });
+function Item(props) {
+  // eslint-disable-next-line camelcase,react/prop-types,no-unused-vars
+  let { genres, id, title, overview, voteAverage, posterPath } = props;
 
-  const updatePeople = (id) => {
-    const rnd = Math.floor(Math.random() * 10) + 2;
-    getPeople(id).then((people) => setTodoData({
-      id: rnd,
-      peopleHeight: people.height,
-      peopleName: people.name,
-    }));
-  };
-
-  useEffect(() => {
-    updatePeople(5);
-  }, []);
-
-  const { peopleHeight, peopleName, id } = todoData;
+  overview = truncate(overview, 25);
 
   return (
     <div className='movie_item'>
       <div className='item_left'>
-        <img className='item_img' src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} alt='' />
+        <img className='item_img' src={`https://image.tmdb.org/t/p/w500${posterPath}`} alt={title} />
       </div>
 
       <div className='item_right'>
         <div className='item_top'>
-          <h5>{peopleHeight}</h5>
-          <div className='item_rating'>{peopleName}</div>
+          <h5>{title}</h5>
+          {/* eslint-disable-next-line camelcase */}
+          <div className='item_rating'>{voteAverage}</div>
         </div>
 
         <data className='item_data'>March 5, 2029</data>
@@ -45,10 +31,7 @@ function Item() {
         </ul>
 
         <div className='item_text'>
-          A former basketball all-star, who has lost his wife and family
-          foundation in a struggle with addiction attempts to regain his soul
-          and salvation by becoming the coach of a disparate ethnically mixed
-          high ...
+          {overview}
         </div>
 
         <div className='item_stars'>
