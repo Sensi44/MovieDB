@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { searchMovies } from '../../Services/service';
+import { searchMovies, dateCorrector } from '../../Services/service';
 import './Item-list.scss';
 import Item from '../Item';
 
@@ -9,9 +9,9 @@ function ItemList() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
 
-  const getMovies = () => searchMovies();
-
   useEffect(() => {
+    const getMovies = () => searchMovies();
+
     getMovies().then(
       (search) => {
         setIsLoaded(true);
@@ -32,7 +32,9 @@ function ItemList() {
       id, title, overview,
       vote_average: voteAverage,
       poster_path: posterPath,
+      release_date: date,
     } = item;
+
     return (
       <li key={`${id}-super-key`} className='ggg'>
         <Item
@@ -42,6 +44,7 @@ function ItemList() {
           genres={genres}
           voteAverage={voteAverage}
           posterPath={posterPath}
+          date={dateCorrector(date)}
         />
       </li>
     );

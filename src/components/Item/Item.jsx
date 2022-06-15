@@ -6,7 +6,7 @@ import './Item.scss';
 
 function Item(props) {
   // eslint-disable-next-line camelcase,react/prop-types,no-unused-vars
-  let { genres, id, title, overview, voteAverage, posterPath } = props;
+  let { genres, id, title, overview, voteAverage, posterPath, date } = props;
 
   overview = truncate(overview, 25);
 
@@ -23,7 +23,7 @@ function Item(props) {
           <div className='item_rating'>{voteAverage}</div>
         </div>
 
-        <data className='item_data'>March 5, 2029</data>
+        <data className='item_data'>{date}</data>
 
         <ul className='item_genres'>
           <li className='item_genre'>Action</li>

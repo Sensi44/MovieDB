@@ -25,6 +25,20 @@ export function truncate(str, maxlength) {
   return `${temp} …`;
 }
 
+// Преобразование даты
+export function dateCorrector(date) {
+  const temp = date.split('-');
+  const year = temp[0];
+  const monthsArray = [
+    'January', 'February', 'March', 'April',
+    'May', 'June', 'July', 'August',
+    'September', 'October', 'November', 'December',
+  ];
+  const month = monthsArray[+temp[1]];
+  const day = +temp[2];
+  return `${month} ${day}, ${year}`;
+}
+
 export async function getResourse() {
   const res = await fetch(`${apiBase}/planets/1`);
   if (!res.ok) {
