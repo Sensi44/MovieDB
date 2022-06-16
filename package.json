@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
+    "antd": "^4.21.2",
     "date-fns": "^2.28.0",
     "node-sass": "^7.0.1",
     "prop-types": "^15.8.1",
@@ -44,7 +45,6 @@
     ]
   },
   "devDependencies": {
-
     "@babel/preset-react": "^7.16.7",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",

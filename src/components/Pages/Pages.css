@@ -3,7 +3,7 @@
  * 32 | .arrow
  *    |       ^
  *    '
- *   Pages.scss 32:7  root stylesheet */
+ *   Counts.scss 32:7  root stylesheet */
 
 body::before {
   font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",

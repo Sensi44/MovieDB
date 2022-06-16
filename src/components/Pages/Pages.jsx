@@ -1,21 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Pagination } from 'antd';
+import PropTypes from 'prop-types';
 
 import './Pages.scss';
 
-function Pages() {
+function Pages(props) {
+  const { changePage } = props;
+  const [current, setCurrent] = useState(1);
+
+  const onChange = (page) => {
+    setCurrent(page);
+    changePage(page);
+  };
+
   return (
-    <div className="pages_container">
-      <span className="arrow_left" />
-      <ul className='pages'>
-        <li className='pages_numb'>1</li>
-        <li className='pages_numb pages_active'>2</li>
-        <li className='pages_numb'>3</li>
-        <li className='pages_numb'>4</li>
-        <li className='pages_numb'>5</li>
-      </ul>
-      <span className="arrow_right" />
+    <div className='pages_container'>
+      <div className='pages'>
+        <Pagination current={current} onChange={onChange} total={50} />
+      </div>
     </div>
   );
 }
+
+Pages.defaultProps = {
+
+};
+
+Pages.propTypes = {
+  changePage: PropTypes.func,
+};
 
 export default Pages;

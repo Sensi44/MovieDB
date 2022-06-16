@@ -1,19 +1,40 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+
+import RateStars from '../Rate-stars';
+import Spiner from '../Spin';
+import Img from './Img';
 
 import { truncate } from '../../Services/service';
+
 import './Item.scss';
 
 function Item(props) {
-  // eslint-disable-next-line camelcase,react/prop-types,no-unused-vars
-  let { genres, id, title, overview, voteAverage, posterPath, date } = props;
+  // eslint-disable-next-line no-unused-vars
+  let { genres, id, title, overview, voteAverage, posterPath, date, load } = props;
+  const [loading, setLoading] = useState(false);
+  // eslint-disable-next-line no-unused-vars
+  const [error, setError] = useState(false);
 
-  overview = truncate(overview, 25);
+  useEffect(() => {
+    setLoading(load);
+    if (posterPath === null) {
+      setError(true);
+    }
+  }, [load]);
+
+  overview = truncate(overview, 140);
+
+  const spinner = !loading ? <Spiner/> : null;
+  const img = loading ? <Img posterPath={posterPath} title={title} /> : null;
+  const errorImg = error ? <div className="error">ОШЫБКА</div> : null;
 
   return (
     <div className='movie_item'>
       <div className='item_left'>
-        <img className='item_img' src={`https://image.tmdb.org/t/p/w500${posterPath}`} alt={title} />
+        { spinner }
+        { img }
+        { errorImg }
       </div>
 
       <div className='item_right'>
@@ -28,6 +49,7 @@ function Item(props) {
         <ul className='item_genres'>
           <li className='item_genre'>Action</li>
           <li className='item_genre'>Drama</li>
+          <li className='item_genre'>{genres}</li>
         </ul>
 
         <div className='item_text'>
@@ -35,11 +57,22 @@ function Item(props) {
         </div>
 
         <div className='item_stars'>
-          <span className='item_star'>123</span>
+          <RateStars voteAverage = {voteAverage}/>
         </div>
       </div>
     </div>
   );
 }
+
+Item.propTypes = {
+  genres: PropTypes.array,
+  id: PropTypes.number,
+  title: PropTypes.string,
+  overview: PropTypes.string,
+  voteAverage: PropTypes.number,
+  posterPath: PropTypes.string,
+  date: PropTypes.string,
+  load: PropTypes.bool,
+};
 
 export default Item;
