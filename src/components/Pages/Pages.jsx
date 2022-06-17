@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import './Pages.scss';
 
 function Pages(props) {
-  const { changePage } = props;
+  const { changePage, pages } = props;
   const [current, setCurrent] = useState(1);
 
   const onChange = (page) => {
@@ -13,10 +13,18 @@ function Pages(props) {
     changePage(page);
   };
 
+  console.log(pages);
+
   return (
     <div className='pages_container'>
       <div className='pages'>
-        <Pagination current={current} onChange={onChange} total={50} />
+        <Pagination
+          current={current}
+          onChange={onChange}
+          total={pages * 10}
+          hideOnSinglePage={true}
+          showSizeChanger={false}
+        />
       </div>
     </div>
   );
@@ -28,6 +36,7 @@ Pages.defaultProps = {
 
 Pages.propTypes = {
   changePage: PropTypes.func,
+  pages: PropTypes.number,
 };
 
 export default Pages;

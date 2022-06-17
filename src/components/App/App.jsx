@@ -9,15 +9,17 @@ import './App.scss';
 
 function App() {
   const [page, setPage] = useState(1);
+  const [pages, setPages] = useState(5);
 
   const changePage = (num) => setPage(num);
+  const getPages = (p) => setPages(p);
 
   return (
     <div className="container">
       <Header />
       <Search />
-      <ItemList page={page}/>
-      <Pages changePage={changePage}/>
+      <ItemList page={page} getPages={getPages}/>
+      <Pages changePage={changePage} pages={pages}/>
     </div>
   );
 }

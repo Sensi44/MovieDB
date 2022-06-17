@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import RateStars from '../Rate-stars';
-import Spiner from '../Spin';
-import Img from './Img';
-
 import { truncate } from '../../Services/service';
+import RateStars from '../Rate-stars';
+import Img from './Img';
+import Spiner from '../Spin';
+import Error from './Error';
 
 import './Item.scss';
 
@@ -13,7 +13,6 @@ function Item(props) {
   // eslint-disable-next-line no-unused-vars
   let { genres, id, title, overview, voteAverage, posterPath, date, load } = props;
   const [loading, setLoading] = useState(false);
-  // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -25,22 +24,21 @@ function Item(props) {
 
   overview = truncate(overview, 140);
 
-  const spinner = !loading ? <Spiner/> : null;
-  const img = loading ? <Img posterPath={posterPath} title={title} /> : null;
-  const errorImg = error ? <div className="error">ОШЫБКА</div> : null;
+  const spinner = loading ? <Spiner/> : null;
+  const img = !loading ? <Img posterPath={posterPath} title={title} /> : null;
+  const errorImg = error ? <Error img={'Невозможно загрузить изображение'}/> : null;
+  const hasData = !(loading || error);
 
   return (
     <div className='movie_item'>
       <div className='item_left'>
-        { spinner }
-        { img }
-        { errorImg }
+        { error ? errorImg : spinner }
+        { hasData ? img : null}
       </div>
 
       <div className='item_right'>
         <div className='item_top'>
           <h5>{title}</h5>
-          {/* eslint-disable-next-line camelcase */}
           <div className='item_rating'>{voteAverage}</div>
         </div>
 
