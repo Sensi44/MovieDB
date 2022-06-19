@@ -13,8 +13,6 @@ function Pages(props) {
     changePage(page);
   };
 
-  console.log(pages);
-
   return (
     <div className='pages_container'>
       <div className='pages'>

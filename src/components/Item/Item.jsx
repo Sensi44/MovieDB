@@ -10,8 +10,7 @@ import Error from './Error';
 import './Item.scss';
 
 function Item(props) {
-  // eslint-disable-next-line no-unused-vars
-  let { genres, id, title, overview, voteAverage, posterPath, date, load } = props;
+  let { genres, title, overview, voteAverage, posterPath, date, load } = props;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 

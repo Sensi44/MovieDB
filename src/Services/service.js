@@ -6,12 +6,12 @@ export async function searchMovies(search, page) {
     const tempSearch = search.split(' ').join('%');
     const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=cd6100594cd5dced56b923866a3e33d9&
   language=en-US&query=${tempSearch}&page=${page}&include_adult=true`);
-    console.log(res);
+    // console.log(res);
     if (!res.ok) {
       throw new Error(`Could not fetch Movies , received ${res.status}`);
     }
     const body = await res.json();
-    console.log(body);
+    // console.log(body);
     return body;
   } catch (e) {
     console.log(e);

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { searchMovies, dateCorrector } from '../../Services/service';
 import Item from '../Item';
-import Counts from '../Counts';
+// import Counts from '../Counts';
 
 import './Item-list.scss';
 
@@ -12,12 +12,12 @@ import './Item-list.scss';
 
 function ItemList(props) {
   const { page, getPages } = props;
+
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-
   const [items, setItems] = useState([]);
-  const [pages, setPages] = useState([]);
-  const [results, setResults] = useState([]);
+  // const [pages, setPages] = useState([]);
+  // const [results, setResults] = useState([]);
 
   useEffect(() => {
     // Управление запросом
@@ -28,8 +28,8 @@ function ItemList(props) {
         (search) => {
           // Появляются дополнительные ререндеры при записи в разные стэйты
           setItems(search.results);
-          setPages(search.total_pages);
-          setResults(search.total_results);
+          // setPages(search.total_pages);
+          // setResults(search.total_results);
           getPages(search.total_pages);
         },
         (err) => {
@@ -43,10 +43,11 @@ function ItemList(props) {
       })
       .finally(() => {
         setIsLoaded(false);
+        console.log(items);
       });
   }, [page]);
 
-  console.log(items);
+  console.log('render', Date.now(), items, items[0]);
 
   const moviesList = items.map((item) => {
     const { genre_ids: genres, id, title, overview,
@@ -69,7 +70,7 @@ function ItemList(props) {
   // if (isLoaded) return <Spiner />;
   return (
     <>
-      <Counts pages={pages} results={results} />
+       { /* <Counts pages={pages} results={results} /> */ }
       <ul className='items_container'>{moviesList}</ul>
     </>
   );
