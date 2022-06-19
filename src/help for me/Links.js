@@ -6,4 +6,3 @@
 
 // Настройка Eslint/Prettier
 // https://proglib.io/p/clean-code-tools
-
