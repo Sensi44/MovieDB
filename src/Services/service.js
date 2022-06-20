@@ -2,6 +2,7 @@ const apiBase = 'https://swapi.dev/api/';
 
 // Поиск по фильмам, основной
 export async function searchMovies(search, page) {
+  // try ... catch обязателен для асинк/эвейт функций
   try {
     const tempSearch = search.split(' ').join('%');
     const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=cd6100594cd5dced56b923866a3e33d9&
@@ -14,9 +15,8 @@ export async function searchMovies(search, page) {
     // console.log(body);
     return body;
   } catch (e) {
-    console.log(e);
+    throw new Error(`Ошибка получения данных с сервера ${e}`);
   }
-  return false;
 }
 
 // Обрезка строки

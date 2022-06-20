@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { searchMovies, dateCorrector } from '../../Services/service';
+import { searchMovies } from '../../Services/service';
 import Item from '../Item';
+import Error from '../Item/Error';
+import Spiner from '../Spin';
 // import Counts from '../Counts';
 
 import './Item-list.scss';
@@ -33,7 +35,7 @@ function ItemList(props) {
           getPages(search.total_pages);
         },
         (err) => {
-          console.log(`${err} ВОТ ЖЕ ВОТ`);
+          console.log(`${err} Ошибка в блоке then`);
           setError(err);
         }
       )
@@ -50,27 +52,19 @@ function ItemList(props) {
   console.log('render', Date.now(), items, items[0]);
 
   const moviesList = items.map((item) => {
-    const { genre_ids: genres, id, title, overview,
-      vote_average: voteAverage, poster_path: posterPath, release_date: date,
-    } = item;
-
+    item.load = isLoaded;
     return (
-      <li key={`${id}-super-key`} className='movie_item'>
-        <Item title={title} id={id} overview={overview}
-              genres={genres} voteAverage={voteAverage}
-              posterPath={posterPath} date={dateCorrector(date)}
-              load={isLoaded} />
+      <li key={`${item.id}-super-key`} className='movie_item'>
+        <Item item={item} />
       </li>
     );
   });
 
-  if (error) {
-    return <div>Ошибка: {error.message}</div>;
-  }
-  // if (isLoaded) return <Spiner />;
   return (
     <>
-       { /* <Counts pages={pages} results={results} /> */ }
+      { /* <Counts pages={pages} results={results} /> */ }
+      { error ? <Error img={`Нет ответа от сервера Ошибка- ${error}`}/> : null }
+      { isLoaded ? <Spiner /> : null }
       <ul className='items_container'>{moviesList}</ul>
     </>
   );
