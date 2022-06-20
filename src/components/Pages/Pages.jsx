@@ -6,6 +6,7 @@ import './Pages.scss';
 
 function Pages(props) {
   const { changePage, pages } = props;
+
   const [current, setCurrent] = useState(1);
 
   const onChange = (page) => {

@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="container">
       <Header />
-      <Search />
+      <Search num={3} num2={2} />
       <ItemList page={page} getPages={getPages}/>
       <Pages changePage={changePage} pages={pages}/>
     </div>

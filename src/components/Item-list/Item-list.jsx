@@ -13,11 +13,12 @@ import './Item-list.scss';
 /** @namespace search.total_results * */
 
 function ItemList(props) {
+  // eslint-disable-next-line no-unused-vars
   const { page, getPages } = props;
 
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [error, setError] = useState(null);
   // const [pages, setPages] = useState([]);
   // const [results, setResults] = useState([]);
 
@@ -34,15 +35,9 @@ function ItemList(props) {
           // setResults(search.total_results);
           getPages(search.total_pages);
         },
-        (err) => {
-          console.log(`${err} Ошибка в блоке then`);
-          setError(err);
-        }
+        (err) => setError(err)
       )
-      .catch((serverError) => {
-        console.log(serverError);
-        setError(serverError);
-      })
+      .catch((serverError) => setError(serverError))
       .finally(() => {
         setIsLoaded(false);
         console.log(items);
@@ -63,9 +58,9 @@ function ItemList(props) {
   return (
     <>
       { /* <Counts pages={pages} results={results} /> */ }
-      { error ? <Error img={`Нет ответа от сервера Ошибка- ${error}`}/> : null }
+      { error ? <Error img={`${error}`}/> : null }
       { isLoaded ? <Spiner /> : null }
-      <ul className='items_container'>{moviesList}</ul>
+      { error ? null : <ul className='items_container'>{moviesList}</ul> }
     </>
   );
 }

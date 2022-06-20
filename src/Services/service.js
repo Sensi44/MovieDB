@@ -15,7 +15,7 @@ export async function searchMovies(search, page) {
     // console.log(body);
     return body;
   } catch (e) {
-    throw new Error(`Ошибка получения данных с сервера ${e}`);
+    throw new Error(`${e.message} ${e.name}`);
   }
 }
 
@@ -50,7 +50,17 @@ export function dateCorrector(date) {
 }
 
 // Пустая функция
-export async function getResourse() {
+// eslint-disable-next-line consistent-return
+export async function getImg(posterPath) {
+  try {
+    const loadResult = await fetch(`https://image.tmdb.org/t/p/w500${posterPath}`);
+    return loadResult;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function getImg2() {
   const res = await fetch(`${apiBase}/planets/1`);
   if (!res.ok) {
     throw new Error(`Could not fetch ${apiBase}/planets/1 , received ${res.status}`);
