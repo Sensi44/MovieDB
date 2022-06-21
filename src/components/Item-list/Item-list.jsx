@@ -5,7 +5,7 @@ import { searchMovies } from '../../Services/service';
 import Item from '../Item';
 import Error from '../Item/Error';
 import Spiner from '../Spin';
-// import Counts from '../Counts';
+import Counts from '../Counts';
 
 import './Item-list.scss';
 
@@ -19,8 +19,8 @@ function ItemList(props) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
   const [onLine, setOnline] = useState(true);
-  // const [pages, setPages] = useState([]);
-  // const [results, setResults] = useState([]);
+  const [pages, setPages] = useState([]);
+  const [results, setResults] = useState([]);
 
   useEffect(() => {
     window.addEventListener('online', () => {
@@ -34,14 +34,12 @@ function ItemList(props) {
   useEffect(() => {
     setIsLoaded(true);
     setError(null);
-    // eslint-disable-next-line no-const-assign
     searchMovies(search, page)
       .then(
         (searchRes) => {
-          // Появляются дополнительные ререндеры при записи в разные стэйты
           setItems(searchRes.results);
-          // setPages(search.total_pages);
-          // setResults(search.total_results);
+          setPages(search.total_pages);
+          setResults(search.total_results);
           getPages(searchRes.total_pages);
         },
         (err) => setError(err)
@@ -53,6 +51,7 @@ function ItemList(props) {
   }, [page, search]);
 
   console.log('render', Date.now(), items, items[0]);
+  console.log();
 
   const moviesList = items.map((item) => {
     item.load = isLoaded;
@@ -69,7 +68,7 @@ function ItemList(props) {
         ? <div className="network-e">Internet connection problem,
           please check your network connection</div>
         : null }
-      { /* <Counts pages={pages} results={results} /> */ }
+      <Counts pages={pages} results={results} />
       {items.length === 0 ? <div>Ничего не найдено, введите запрос</div> : null}
       { error ? <Error img={`${error}`}/> : null }
       { isLoaded ? <Spiner /> : null }

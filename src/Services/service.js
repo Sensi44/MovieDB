@@ -1,4 +1,4 @@
-const apiBase = 'https://swapi.dev/api/';
+// const apiBase = 'https://swapi.dev/api/';
 
 // Поиск по фильмам, основной
 export async function searchMovies(search, page) {
@@ -60,12 +60,12 @@ export async function getImg(posterPath) {
   }
 }
 
-export async function getImg2() {
-  const res = await fetch(`${apiBase}/planets/1`);
-  if (!res.ok) {
-    throw new Error(`Could not fetch ${apiBase}/planets/1 , received ${res.status}`);
-  }
-  const body = await res.json();
-  console.log(body);
-  return body;
+export function debounce(fn, debounceTime) {
+  let timer;
+  return function (...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(this, args);
+    }, debounceTime);
+  };
 }
