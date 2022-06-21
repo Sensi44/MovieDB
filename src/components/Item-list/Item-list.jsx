@@ -13,36 +13,44 @@ import './Item-list.scss';
 /** @namespace search.total_results * */
 
 function ItemList(props) {
-  // eslint-disable-next-line no-unused-vars
-  const { page, getPages } = props;
+  const { page, getPages, search } = props;
 
   const [items, setItems] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
+  const [onLine, setOnline] = useState(true);
   // const [pages, setPages] = useState([]);
   // const [results, setResults] = useState([]);
 
   useEffect(() => {
-    // Управление запросом
+    window.addEventListener('online', () => {
+      setOnline(true);
+    });
+    window.addEventListener('offline', () => {
+      setOnline(false);
+    });
+  }, []);
+
+  useEffect(() => {
     setIsLoaded(true);
     setError(null);
-    searchMovies('Harry', page)
+    // eslint-disable-next-line no-const-assign
+    searchMovies(search, page)
       .then(
-        (search) => {
+        (searchRes) => {
           // Появляются дополнительные ререндеры при записи в разные стэйты
-          setItems(search.results);
+          setItems(searchRes.results);
           // setPages(search.total_pages);
           // setResults(search.total_results);
-          getPages(search.total_pages);
+          getPages(searchRes.total_pages);
         },
         (err) => setError(err)
       )
       .catch((serverError) => setError(serverError))
       .finally(() => {
         setIsLoaded(false);
-        console.log(items);
       });
-  }, [page]);
+  }, [page, search]);
 
   console.log('render', Date.now(), items, items[0]);
 
@@ -57,7 +65,12 @@ function ItemList(props) {
 
   return (
     <>
+      {!onLine
+        ? <div className="network-e">Internet connection problem,
+          please check your network connection</div>
+        : null }
       { /* <Counts pages={pages} results={results} /> */ }
+      {items.length === 0 ? <div>Ничего не найдено, введите запрос</div> : null}
       { error ? <Error img={`${error}`}/> : null }
       { isLoaded ? <Spiner /> : null }
       { error ? null : <ul className='items_container'>{moviesList}</ul> }
@@ -68,6 +81,7 @@ function ItemList(props) {
 ItemList.propTypes = {
   page: PropTypes.number,
   getPages: PropTypes.func,
+  search: PropTypes.string,
 };
 
 export default ItemList;
