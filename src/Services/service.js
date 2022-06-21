@@ -2,7 +2,7 @@
 
 // Поиск по фильмам, основной
 export async function searchMovies(search, page) {
-  // try ... catch обязателен для асинк/эвейт функций
+  // try ... catch обязателен для async/await функций
   try {
     const tempSearch = search.split(' ').join('%');
     const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=cd6100594cd5dced56b923866a3e33d9&
@@ -49,6 +49,16 @@ export function dateCorrector(date) {
   return `${month} ${day}, ${year}`;
 }
 
+export function debounce(fn, debounceTime) {
+  let timer;
+  return function (...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(this, args);
+    }, debounceTime);
+  };
+}
+
 // Пустая функция
 // eslint-disable-next-line consistent-return
 export async function getImg(posterPath) {
@@ -58,14 +68,4 @@ export async function getImg(posterPath) {
   } catch (e) {
     console.log(e);
   }
-}
-
-export function debounce(fn, debounceTime) {
-  let timer;
-  return function (...args) {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      fn.apply(this, args);
-    }, debounceTime);
-  };
 }

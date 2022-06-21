@@ -9,7 +9,7 @@
         "eslint:recommended",
         "plugin:react/recommended",
         "airbnb/base",
-        "plugin:jsx-a11y/recommended"
+        "react-app", "plugin:jsx-a11y/recommended"
     ],
     "parserOptions": {
         "ecmaFeatures": {

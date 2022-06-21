@@ -19,8 +19,8 @@ function ItemList(props) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
   const [onLine, setOnline] = useState(true);
-  const [pages, setPages] = useState([]);
-  const [results, setResults] = useState([]);
+  const [pages, setPages] = useState(null);
+  const [results, setResults] = useState(null);
 
   useEffect(() => {
     window.addEventListener('online', () => {
@@ -29,6 +29,14 @@ function ItemList(props) {
     window.addEventListener('offline', () => {
       setOnline(false);
     });
+    return () => {
+      window.addEventListener('online', () => {
+        setOnline(true);
+      });
+      window.addEventListener('offline', () => {
+        setOnline(false);
+      });
+    };
   }, []);
 
   useEffect(() => {
@@ -38,8 +46,8 @@ function ItemList(props) {
       .then(
         (searchRes) => {
           setItems(searchRes.results);
-          setPages(search.total_pages);
-          setResults(search.total_results);
+          setPages(searchRes.total_pages);
+          setResults(searchRes.total_results);
           getPages(searchRes.total_pages);
         },
         (err) => setError(err)
@@ -51,7 +59,6 @@ function ItemList(props) {
   }, [page, search]);
 
   console.log('render', Date.now(), items, items[0]);
-  console.log();
 
   const moviesList = items.map((item) => {
     item.load = isLoaded;
@@ -70,9 +77,8 @@ function ItemList(props) {
         : null }
       <Counts pages={pages} results={results} />
       {items.length === 0 ? <div>Ничего не найдено, введите запрос</div> : null}
-      { error ? <Error img={`${error}`}/> : null }
       { isLoaded ? <Spiner /> : null }
-      { error ? null : <ul className='items_container'>{moviesList}</ul> }
+      { error ? <Error img={`${error}`}/> : <ul className='items_container'>{moviesList}</ul> }
     </>
   );
 }

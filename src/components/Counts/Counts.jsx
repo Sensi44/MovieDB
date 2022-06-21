@@ -1,14 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function Counts(props) {
-  // eslint-disable-next-line react/prop-types
   const { pages, results } = props;
-  console.log(pages, results);
   return (
-      <>
-       <div><span>Фильмов: </span>{results}   <span>Страниц: </span>{pages}</div>
-      </>
+    <>
+      {results ? (
+        <div>
+          <span>Фильмов найдено: </span>
+          {results} &nbsp;&nbsp;&nbsp; <span>Страниц: </span>
+          {pages}
+        </div>
+      ) : null}
+    </>
   );
 }
+
+Counts.propTypes = {
+  pages: PropTypes.number,
+  results: PropTypes.number,
+};
 
 export default Counts;

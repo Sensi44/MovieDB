@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// eslint-disable-next-line no-unused-vars
 import { debounce } from '../../Services/service';
 
 import './Search.scss';
@@ -24,11 +23,15 @@ function Search({ changeSearch }) {
 
   return (
     <div className="search_container">
+      <label htmlFor="searchInput">
       <input
+        id="searchInput"
+        name="searchInput"
         className="search_input"
         type="text" placeholder="Type to search..."
         onChange={handleToggle}
       />
+      </label>
     </div>
   );
 }
