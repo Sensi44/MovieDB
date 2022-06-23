@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { debounce } from '../../Services/service';
+import debounce from 'lodash.debounce';
 
 import './Search.scss';
 

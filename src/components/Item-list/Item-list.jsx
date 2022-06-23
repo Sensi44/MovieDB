@@ -19,10 +19,11 @@ function ItemList(props) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
   const [onLine, setOnline] = useState(true);
-  const [pages, setPages] = useState(null);
-  const [results, setResults] = useState(null);
+  const [pages, setPages] = useState(0);
+  const [results, setResults] = useState(0);
 
   useEffect(() => {
+    console.log('1st mounting');
     window.addEventListener('online', () => {
       setOnline(true);
     });
@@ -30,6 +31,7 @@ function ItemList(props) {
       setOnline(false);
     });
     return () => {
+      console.log('unmounting');
       window.addEventListener('online', () => {
         setOnline(true);
       });
@@ -45,6 +47,7 @@ function ItemList(props) {
     searchMovies(search, page)
       .then(
         (searchRes) => {
+          console.log(searchRes);
           setItems(searchRes.results);
           setPages(searchRes.total_pages);
           setResults(searchRes.total_results);
@@ -58,8 +61,6 @@ function ItemList(props) {
       });
   }, [page, search]);
 
-  console.log('render', Date.now(), items, items[0]);
-
   const moviesList = items.map((item) => {
     item.load = isLoaded;
     return (
@@ -71,14 +72,20 @@ function ItemList(props) {
 
   return (
     <>
-      {!onLine
-        ? <div className="network-e">Internet connection problem,
-          please check your network connection</div>
-        : null }
+      {!onLine ? (
+        <div className='network-e'>
+          Internet connection problem, please check your network connection
+        </div>
+      ) : null}
+      {console.log('render')}
       <Counts pages={pages} results={results} />
       {items.length === 0 ? <div>Ничего не найдено, введите запрос</div> : null}
-      { isLoaded ? <Spiner /> : null }
-      { error ? <Error img={`${error}`}/> : <ul className='items_container'>{moviesList}</ul> }
+      {isLoaded ? <Spiner /> : null}
+      {error ? (
+        <Error img={`${error}`} />
+      ) : (
+        <ul className='items_container'>{moviesList}</ul>
+      )}
     </>
   );
 }

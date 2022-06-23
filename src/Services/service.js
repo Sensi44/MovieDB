@@ -7,13 +7,10 @@ export async function searchMovies(search, page) {
     const tempSearch = search.split(' ').join('%');
     const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=cd6100594cd5dced56b923866a3e33d9&
   language=en-US&query=${tempSearch}&page=${page}&include_adult=false`);
-    // console.log(res);
     if (!res.ok) {
       throw new Error(`Could not fetch Movies , received ${res.status}`);
     }
-    const body = await res.json();
-    // console.log(body);
-    return body;
+    return await res.json();
   } catch (e) {
     throw new Error(`${e.message} ${e.name}`);
   }
@@ -51,6 +48,7 @@ export function dateCorrector(date) {
 
 export function debounce(fn, debounceTime) {
   let timer;
+  // eslint-disable-next-line func-names
   return function (...args) {
     clearTimeout(timer);
     timer = setTimeout(() => {

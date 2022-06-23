@@ -21,7 +21,7 @@ function Item(props) {
     if (posterPath === null) {
       setError(true);
     }
-  }, [load]);
+  }, [load, posterPath]);
 
   const spinner = loading ? <Spiner/> : null;
   const img = !loading ? <Img posterPath={posterPath} title={title} /> : null;
