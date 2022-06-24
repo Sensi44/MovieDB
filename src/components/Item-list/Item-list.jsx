@@ -12,14 +12,8 @@ import './Item-list.scss';
 
 function ItemList(props) {
   const { page, getPages, search } = props;
-
-  const [items, setItems] = useState({
-    items: [],
-    pages: 0,
-    results: 0,
-  });
-
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [items, setItems] = useState({ items: [], pages: 0, results: 0 });
+  const [isLoaded, setIsLoaded] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -39,9 +33,7 @@ function ItemList(props) {
         (err) => setError(err)
       )
       .catch((serverError) => setError(serverError))
-      .finally(() => {
-        setIsLoaded(false);
-      });
+      .finally(() => setIsLoaded(false));
   }, [page, search]);
 
   const moviesList = items.items.map((item) => {
@@ -61,7 +53,7 @@ function ItemList(props) {
         Internet connection problem, please check your network connection
         </div>
       </Offline>
-      {console.log('render', Date.now())}
+      {console.log('render', 'item-list')}
       <Counts pages={pages} results={results} />
       {items.items.length === 0 ? <div>Ничего не найдено, введите запрос</div> : null}
       {isLoaded ? <Spiner /> : null}
