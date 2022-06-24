@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import image from '../../img/no-image.jpg';
 
 import { truncate, dateCorrector } from '../../Services/service';
 import RateStars from '../Rate-stars';
 import Img from './Img';
 import Spiner from '../Spin';
-import Error from './Error';
 
 import './Item.scss';
 
@@ -25,7 +25,7 @@ function Item(props) {
 
   const spinner = loading ? <Spiner/> : null;
   const img = !loading ? <Img posterPath={posterPath} title={title} /> : null;
-  const errorImg = error ? <Error img={'Невозможно загрузить изображение'}/> : null;
+  const errorImg = error ? <img className="no-image" src={image} alt="Нет доступных изображений"/> : null;
   const hasData = !(loading || error);
 
   return (

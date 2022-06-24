@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import { Offline } from 'react-detect-offline';
 import { searchMovies } from '../../Services/service';
 import Item from '../Item';
 import Error from '../Item/Error';
@@ -9,37 +10,17 @@ import Counts from '../Counts';
 
 import './Item-list.scss';
 
-/** @namespace search.total_pages * */
-/** @namespace search.total_results * */
-
 function ItemList(props) {
   const { page, getPages, search } = props;
 
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState({
+    items: [],
+    pages: 0,
+    results: 0,
+  });
+
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(null);
-  const [onLine, setOnline] = useState(true);
-  const [pages, setPages] = useState(0);
-  const [results, setResults] = useState(0);
-
-  useEffect(() => {
-    console.log('1st mounting');
-    window.addEventListener('online', () => {
-      setOnline(true);
-    });
-    window.addEventListener('offline', () => {
-      setOnline(false);
-    });
-    return () => {
-      console.log('unmounting');
-      window.addEventListener('online', () => {
-        setOnline(true);
-      });
-      window.addEventListener('offline', () => {
-        setOnline(false);
-      });
-    };
-  }, []);
 
   useEffect(() => {
     setIsLoaded(true);
@@ -47,10 +28,12 @@ function ItemList(props) {
     searchMovies(search, page)
       .then(
         (searchRes) => {
-          console.log(searchRes);
-          setItems(searchRes.results);
-          setPages(searchRes.total_pages);
-          setResults(searchRes.total_results);
+          setItems((prevState) => ({
+            ...prevState,
+            items: searchRes.results,
+            pages: searchRes.total_pages,
+            results: searchRes.total_results,
+          }));
           getPages(searchRes.total_pages);
         },
         (err) => setError(err)
@@ -61,7 +44,7 @@ function ItemList(props) {
       });
   }, [page, search]);
 
-  const moviesList = items.map((item) => {
+  const moviesList = items.items.map((item) => {
     item.load = isLoaded;
     return (
       <li key={`${item.id}-super-key`} className='movie_item'>
@@ -70,16 +53,17 @@ function ItemList(props) {
     );
   });
 
+  const { pages, results } = items;
   return (
     <>
-      {!onLine ? (
+      <Offline>
         <div className='network-e'>
-          Internet connection problem, please check your network connection
+        Internet connection problem, please check your network connection
         </div>
-      ) : null}
-      {console.log('render')}
+      </Offline>
+      {console.log('render', Date.now())}
       <Counts pages={pages} results={results} />
-      {items.length === 0 ? <div>Ничего не найдено, введите запрос</div> : null}
+      {items.items.length === 0 ? <div>Ничего не найдено, введите запрос</div> : null}
       {isLoaded ? <Spiner /> : null}
       {error ? (
         <Error img={`${error}`} />

@@ -1,19 +1,12 @@
-// const apiBase = 'https://swapi.dev/api/';
+import axios from 'axios';
 
 // Поиск по фильмам, основной
-export async function searchMovies(search, page) {
-  // try ... catch обязателен для async/await функций
-  try {
-    const tempSearch = search.split(' ').join('%');
-    const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=cd6100594cd5dced56b923866a3e33d9&
-  language=en-US&query=${tempSearch}&page=${page}&include_adult=false`);
-    if (!res.ok) {
-      throw new Error(`Could not fetch Movies , received ${res.status}`);
-    }
-    return await res.json();
-  } catch (e) {
-    throw new Error(`${e.message} ${e.name}`);
-  }
+export function searchMovies(search, page) {
+  const tempSearch = search.split(' ').join('%');
+  const apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=cd6100594cd5dced56b923866a3e33d9&
+  language=en-US&query=${tempSearch}&page=${page}&include_adult=false`;
+  const res = axios.get(apiUrl).then((resp) => resp.data);
+  return res;
 }
 
 // Обрезка строки
@@ -46,17 +39,6 @@ export function dateCorrector(date) {
   return `${month} ${day}, ${year}`;
 }
 
-export function debounce(fn, debounceTime) {
-  let timer;
-  // eslint-disable-next-line func-names
-  return function (...args) {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      fn.apply(this, args);
-    }, debounceTime);
-  };
-}
-
 // Пустая функция
 // eslint-disable-next-line consistent-return
 export async function getImg(posterPath) {
@@ -67,3 +49,31 @@ export async function getImg(posterPath) {
     console.log(e);
   }
 }
+
+// Поиск по фильмам, старый
+export async function searchMoviesOld(search, page) {
+  // try ... catch обязателен для async/await функций
+  try {
+    const tempSearch = search.split(' ').join('%');
+    const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=cd6100594cd5dced56b923866a3e33d9&
+  language=en-US&query=${tempSearch}&page=${page}&include_adult=false`);
+    if (!res.ok) {
+      throw new Error(`Could not fetch Movies , received ${res.status}`);
+    }
+    return await res.json();
+  } catch (e) {
+    throw new Error(`${e.message} ${e.name}`);
+  }
+}
+
+//
+// export function debounce(fn, debounceTime) {
+//   let timer;
+//   // eslint-disable-next-line func-names
+//   return function (...args) {
+//     clearTimeout(timer);
+//     timer = setTimeout(() => {
+//       fn.apply(this, args);
+//     }, debounceTime);
+//   };
+// }

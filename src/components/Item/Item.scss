@@ -1,6 +1,7 @@
 .movie_item {
   display: flex;
   justify-content: space-between;
+  min-width: 454px;
   max-width: 454px;
   height: 281px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -25,8 +26,9 @@
   top: 70px;
 }
 
-.ant-alert {
+.no-image {
   height: 281px;
+  width: 183px;
 }
 
 .item_img {

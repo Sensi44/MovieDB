@@ -10,7 +10,7 @@ import './App.scss';
 
 function App() {
   const [page, setPage] = useState(1);
-  const [pages, setPages] = useState(5);
+  const [pages, setPages] = useState(0);
   const [search, setSearch] = useState(' ');
 
   const changePage = (num) => setPage(num);
