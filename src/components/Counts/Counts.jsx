@@ -6,7 +6,7 @@ function Counts(props) {
   return (
     <>
       {results ? (
-        <div>
+        <div className="counts">
           <span>Фильмов найдено: </span>
           {results} &nbsp;&nbsp;&nbsp; <span>Страниц: </span>
           {pages}
