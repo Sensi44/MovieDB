@@ -1,24 +1,12 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import debounce from 'lodash.debounce';
 
 import './Search.scss';
 
-// eslint-disable-next-line react/prop-types
 function Search({ changeSearch }) {
-  // eslint-disable-next-line no-unused-vars
-  const [label, setLabel] = useState('');
-  const input = useRef();
-
-  // function handleChange(e) {
-  //   console.log(e.target.value);
-  //   const temp = e.target.value;
-  //   setLabel(e.target.value);
-  //   changeSearch(temp === '' ? ' ' : temp);
-  // }
-
   const handleToggle = debounce((e) => {
     const temp = e.target.value;
-    // setLabel(e.target.value);
     changeSearch(temp === '' ? ' ' : temp);
   }, 400);
 
@@ -32,11 +20,14 @@ function Search({ changeSearch }) {
         className="search_input"
         type="text" placeholder="Type to search..."
         onChange={handleToggle}
-        ref={input}
       />
       </label>
     </div>
   );
 }
+
+Search.propTypes = {
+  changeSearch: PropTypes.func,
+};
 
 export default Search;

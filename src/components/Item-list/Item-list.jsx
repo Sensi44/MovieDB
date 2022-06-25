@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { Offline } from 'react-detect-offline';
@@ -15,6 +15,10 @@ function ItemList(props) {
   const [items, setItems] = useState({ items: [], pages: 0, results: 0 });
   const [isLoaded, setIsLoaded] = useState(true);
   const [error, setError] = useState(null);
+  const refResults = useRef(items.results);
+  const refPage = useRef(1);
+  const tr = 'total_results';
+  const tp = 'total_pages';
 
   useEffect(() => {
     setIsLoaded(true);
@@ -22,18 +26,27 @@ function ItemList(props) {
     searchMovies(search, page)
       .then(
         (searchRes) => {
-          setItems((prevState) => ({
-            ...prevState,
-            items: searchRes.results,
-            pages: searchRes.total_pages,
-            results: searchRes.total_results,
-          }));
-          getPages(searchRes.total_pages);
+          // console.log(`Поиск - ${searchRes[tr]}`, `::: Реф - ${refResults.current}`);
+          // console.log(`Страница - ${searchRes.page}`, `::: Реф - ${refPage.current}`);
+          if (refResults.current !== searchRes[tr]
+          || refPage.current !== searchRes.page) {
+            setItems((prevState) => ({
+              ...prevState,
+              items: searchRes.results,
+              pages: searchRes[tp],
+              results: searchRes[tr],
+            }));
+            getPages(searchRes[tp]);
+          }
+          refResults.current = searchRes[tr];
+          refPage.current = searchRes.page;
         },
         (err) => setError(err)
       )
       .catch((serverError) => setError(serverError))
-      .finally(() => setIsLoaded(false));
+      .finally(() => {
+        setIsLoaded(false);
+      });
   }, [page, search]);
 
   const moviesList = items.items.map((item) => {
@@ -53,7 +66,7 @@ function ItemList(props) {
         Internet connection problem, please check your network connection
         </div>
       </Offline>
-      {console.log('render', 'item-list')}
+      {console.log('render', 'item-list', items)}
       <Counts pages={pages} results={results} />
       {items.items.length === 0 ? <div>Ничего не найдено, введите запрос</div> : null}
       {isLoaded ? <Spiner /> : null}

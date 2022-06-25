@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { truncate, dateCorrector } from '../../Services/service';
@@ -25,7 +25,6 @@ function Item(props) {
         { errorImg || spinner }
         { hasData ? img : null}
       </div>
-      {console.log('render', 'item')}
       <div className='item_right'>
         <div className='item_top'>
           <h5>{title}</h5>
