@@ -53,7 +53,7 @@ function ItemList(props) {
     item.load = isLoaded;
     return (
       <li key={`${item.id}-super-key`} className='movie_item'>
-        <Item item={item} genresList={genres}/>
+        <Item item={item}/>
       </li>
     );
   });
@@ -66,7 +66,7 @@ function ItemList(props) {
         </div>
       </Offline>
 
-      {console.log('render', 'item-list', items, genres)}
+      {console.log('render', 'item-list', items)}
       <Counts pages={pages} results={results} page={page}/>
 
       {cards.length === 0 ? <div>Ничего не найдено, введите запрос</div> : null}

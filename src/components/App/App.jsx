@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 
 import { Tabs } from 'antd';
+// eslint-disable-next-line import/no-cycle
 import ItemList from '../Item-list';
 import Search from '../Search';
+import { DataProvider } from '../Context/DataContext';
 // import ForTest from '../ForTest';
 import { getGenres } from '../../Services/service';
 
 import './App.scss';
 
+export const GenresContext = React.createContext();
 function App() {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState(' ');
@@ -25,14 +28,15 @@ function App() {
         setGenres(g.genres);
       });
   }, []);
-  console.log(genres);
 
   return (
     <div className="container">
       <Tabs defaultActiveKey="1" centered size="large" >
         <TabPane tab="Search" key="1">
           <Search num={3} num2={2} changeSearch={changeSearch} />
-          <ItemList page={page} search={search} genres={genres} changePage={changePage}/>
+          <DataProvider genres={genres}>
+            <ItemList page={page} search={search} changePage={changePage}/>
+          </DataProvider>
         </TabPane>
         { console.log('render app') }
         <TabPane tab="Rated" key="2">
