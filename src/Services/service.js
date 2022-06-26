@@ -9,19 +9,40 @@ export function searchMovies(search, page) {
   return res;
 }
 
-// Обрезка строки
+// Получение списка жанров
+export async function getGenres() {
+  const apiUrl = 'https://api.themoviedb.org/3/genre/movie/list?api_key=cd6100594cd5dced56b923866a3e33d9&language=en-US';
+  const res = await axios.get(apiUrl).then((resp) => resp.data);
+  return res;
+}
+
+// Получение списка конкретных жанров
+export function setGenres(baseData, searchData) {
+  const results = [];
+  baseData.forEach((item) => {
+    searchData.forEach((genreNumber) => {
+      if (item.id === genreNumber) {
+        results.push(item.name);
+      }
+    });
+  });
+  return results;
+}
+
+// Обрезка заголовка
 export function truncate(str, maxlength) {
   let result = str.slice(0, maxlength).split(' ');
+  if (result.length < 9) {
+    result = result.splice(0, result.length).join(' ');
+    return (result.length <= maxlength) ? result : `${result}…`;
+  }
+  if (str.length < maxlength) {
+    return result.splice(0, result.length).join(' ');
+  }
   result = result.splice(0, result.length - 1).join(' ');
-  result = result.includes('.', result.length - 1)
-    ? result.slice(0, result.length - 1) : result;
-  result = result.includes('?', result.length - 1)
-    ? result.slice(0, result.length - 1) : result;
-  result = result.includes('!', result.length - 1)
-    ? result.slice(0, result.length - 1) : result;
-  result = result.includes(',', result.length - 1)
-    ? result.slice(0, result.length - 1) : result;
-  return `${result} …`;
+  result = result.includes('.' || ',' || '?' || ',', result.length - 1)
+    ? `${result.slice(0, result.length - 1)}…` : `${result}…`;
+  return result;
 }
 
 // Преобразование даты
@@ -36,7 +57,20 @@ export function dateCorrector(date) {
   ];
   const month = monthsArray[+temp[1]];
   const day = +temp[2];
-  return `${month} ${day}, ${year}`;
+  return `${month || '--'} ${(day.toString().length < 2) ? `0${day}` : day}, ${year}`;
+}
+
+// Обрезка строки
+export function truncateOverview(str, maxlength) {
+  let result = str.slice(0, maxlength).split(' ');
+  if (str.length < maxlength) {
+    result = result.splice(0, result.length).join(' ');
+  } else {
+    result = result.splice(0, result.length - 1).join(' ');
+    result = result.includes('.' || ',' || '?' || ',', result.length - 1)
+      ? `${result.slice(0, result.length - 1)}…` : `${result}…`;
+  }
+  return result;
 }
 
 // Пустая функция

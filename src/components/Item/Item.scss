@@ -10,7 +10,8 @@
 
 .movie_item:hover {
   transform: translate(0px, 0px);
-  box-shadow: 0 5px 12px rgba(250,50,150,0.20);
+  box-shadow: 4px 3px 8px #002149;
+  perspective: 100px;
 }
 
 .item_left {
@@ -71,7 +72,7 @@
   font-family: 'Inter', serif;
   font-style: normal;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 28px;
   display: flex;
   margin: 0;
@@ -109,8 +110,8 @@
 .item_genres {
   display: flex;
   flex-wrap: wrap;
-  height: 20px;
   width: 100%;
+  height: 48px;
   box-sizing: border-box;
   margin: 0 1px 7px 0;
   padding: 0;
@@ -131,6 +132,7 @@
   color: rgba(0, 0, 0, 0.65);
   list-style-type: none;
   margin-right: 8px;
+  margin-bottom: 4px;
 }
 
 .item_text {
@@ -138,7 +140,7 @@
   font-family: 'Inter', serif;
   font-style: normal;
   font-weight: 400;
-  min-height: 88px;
+  min-height: 66px;
   font-size: 12px;
   line-height: 22px;
   color: #000000;

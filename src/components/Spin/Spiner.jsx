@@ -3,7 +3,7 @@ import { Spin } from 'antd';
 
 function Spiner() {
   return (
-    <Spin size="large" />
+    <Spin size="large" className="itemListSpin"/>
   );
 }
 
