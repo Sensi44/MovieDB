@@ -1,14 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const GenresContext = React.createContext();
 
-export const DataProvider = (props) => {
-  console.log(props);
-  return (
-    // eslint-disable-next-line react/prop-types
+export const DataProvider = (props) => (
     <GenresContext.Provider value={props.genres}>
-      {/* eslint-disable-next-line react/prop-types */}
       {props.children}
     </GenresContext.Provider>
-  );
+);
+
+DataProvider.propTypes = {
+  children: PropTypes.object,
+  genres: PropTypes.array,
 };

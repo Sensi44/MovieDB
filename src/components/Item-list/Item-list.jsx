@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { Offline } from 'react-detect-offline';
-import { searchMovies } from '../../Services/service';
+import { searchMovies, getRate } from '../../Services/service';
 import Item from '../Item';
 import Pages from '../Pages';
 import Error from '../Item/Error';
@@ -12,7 +12,7 @@ import Counts from '../Counts';
 import './Item-list.scss';
 
 function ItemList(props) {
-  const { page, search, genres, changePage } = props;
+  const { page, search, changePage, ratedMovies } = props;
   const [items, setItems] = useState({ cards: [], pages: 0, results: 0 });
   const [isLoaded, setIsLoaded] = useState(true);
   const [error, setError] = useState(null);
@@ -48,9 +48,9 @@ function ItemList(props) {
   }, [page, search]);
 
   const { pages, results, cards } = items;
-
   const moviesList = cards.map((item) => {
     item.load = isLoaded;
+    item.rating = getRate(item.id, ratedMovies);
     return (
       <li key={`${item.id}-super-key`} className='movie_item'>
         <Item item={item}/>
@@ -87,6 +87,7 @@ ItemList.propTypes = {
   search: PropTypes.string,
   genres: PropTypes.array,
   changePage: PropTypes.func,
+  ratedMovies: PropTypes.array,
 };
 
 export default ItemList;

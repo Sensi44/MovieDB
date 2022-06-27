@@ -12,7 +12,7 @@ import './Item.scss';
 
 function Item(props) {
   const { genre_ids: genres, title, overview, load, vote_average: voteAverage,
-    poster_path: posterPath, release_date: date } = props.item;
+    poster_path: posterPath, release_date: date, rating, id } = props.item;
   const genresList = useContext(GenresContext);
 
   const spinner = load ? <Spiner/> : null;
@@ -33,7 +33,7 @@ function Item(props) {
           <div className='item_rating'>{voteAverage}</div>
         </div>
 
-        <data className='item_data'>{dateCorrector(date)}</data>
+        <data className='item_data'>{dateCorrector(date)}{`  id - ${id}`}</data>
 
         <ul className='item_genres'>
           {setGenres(genresList, genres).map((genre) => <li key={genre} className='item_genre'>{genre}</li>)}
@@ -44,7 +44,7 @@ function Item(props) {
         </div>
 
         <div className='item_stars'>
-          <RateStars voteAverage = {voteAverage}/>
+          <RateStars voteAverage = {rating}/>
         </div>
       </div>
     </div>

@@ -9,6 +9,34 @@ export function searchMovies(search, page) {
   return res;
 }
 
+// Оценить фильм
+export function rateMovie(id) {
+  const data = { value: 3.5 };
+  const url = `https://api.themoviedb.org/3/movie/${id}/rating?api_key=cd6100594cd5dced56b923866a3e33d9&session_id=495decee3693403628362cb80113fee20f76f0f6`;
+  const options = {
+    headers: { 'content-type': 'application/json' },
+  };
+  axios.post(url, data, options).then((r) => null);
+}
+
+// Получить список оценённых фильмов
+export function getRatedMovies() {
+  const url = 'https://api.themoviedb.org/3/account/12650007/rated/movies?api_key=cd6100594cd5dced56b923866a3e33d9&language=en-US&session_id=495decee3693403628362cb80113fee20f76f0f6&sort_by=created_at.asc&page=1';
+  const res = axios.get(url).then((resp) => resp.data);
+  return res;
+}
+
+// Получение рейтинга фильма для страницы поиска
+export const getRate = (id, r) => {
+  let rating = null;
+  r.forEach((rateItem) => {
+    if (id === rateItem.id) {
+      rating = rateItem.rating;
+    }
+  });
+  return rating;
+};
+
 // Получение списка жанров
 export async function getGenres() {
   const apiUrl = 'https://api.themoviedb.org/3/genre/movie/list?api_key=cd6100594cd5dced56b923866a3e33d9&language=en-US';

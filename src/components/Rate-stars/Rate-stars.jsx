@@ -6,8 +6,16 @@ import './Rate-stars.scss';
 
 function RateStars(props) {
   const { voteAverage } = props;
+
+  const test = (e) => {
+    console.log(e);
+    // Текущая кликнутая звезда
+  };
+
   return (
-   <><Rate allowHalf defaultValue={voteAverage} count = {10} /></>
+   <>
+     <Rate allowHalf defaultValue={ voteAverage } onChange={test} count = {10} />
+     </>
   );
 }
 
