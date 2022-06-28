@@ -21,6 +21,14 @@ function Item(props) {
     ? <img className="no-image" src={image} alt="Нет доступных изображений"/> : null;
   const hasData = !(load || errorImg);
 
+  const getColor = () => {
+    if (voteAverage >= 0 && voteAverage < 3) return 'item_rating red';
+    if (voteAverage >= 3 && voteAverage < 5) return 'item_rating orange';
+    if (voteAverage >= 5 && voteAverage < 7) return 'item_rating yellow';
+    if (voteAverage >= 7) return 'item_rating green';
+    return 'item_rating';
+  };
+
   return (
     <div className='movie_item'>
       <div className='item_left'>
@@ -30,7 +38,7 @@ function Item(props) {
       <div className='item_right'>
         <div className='item_top'>
           <h5 title={(title.length >= 32) ? title : null}>{truncate(title, 60)}</h5>
-          <div className='item_rating'>{voteAverage}</div>
+          <div className={getColor()}>{voteAverage}</div>
         </div>
 
         <data className='item_data'>{dateCorrector(date)}{`  id - ${id}`}</data>

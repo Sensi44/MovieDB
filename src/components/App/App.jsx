@@ -47,7 +47,6 @@ function App() {
     }
   }, []);
 
-  console.log(cookie.get('guest_session_id'));
   return (
     <div className='container'>
       <Tabs defaultActiveKey='1' centered size='large'>
