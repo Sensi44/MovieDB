@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+const baseURL = 'https://api.themoviedb.org/';
+const apiKey = 'cd6100594cd5dced56b923866a3e33d9';
+
 // Поиск по фильмам, основной
 export function searchMovies(search, page) {
   const tempSearch = search.split(' ').join('%');
@@ -20,10 +23,24 @@ export function rateMovie(id) {
 }
 
 // Получить список оценённых фильмов
-export function getRatedMovies() {
-  const url = 'https://api.themoviedb.org/3/account/12650007/rated/movies?api_key=cd6100594cd5dced56b923866a3e33d9&language=en-US&session_id=495decee3693403628362cb80113fee20f76f0f6&sort_by=created_at.asc&page=1';
-  const res = axios.get(url).then((resp) => resp.data);
+export function getRatedMovies(id, page) {
+  // eslint-disable-next-line max-len
+  const url = `${baseURL}3/guest_session/${id}/rated/movies?api_key=${apiKey}&page=${page}&language=en-US&sort_by=created_at.asc`;
+  const res = axios.get(url)
+    .then((resp) => resp.data);
   return res;
+}
+
+export async function getGuestSessionId() {
+  const res = await fetch(
+    `${baseURL}3/authentication/guest_session/new?api_key=${apiKey}`
+  );
+  if (!res.ok) {
+    throw new Error(res.status);
+  }
+  const guestId = await res.json();
+  console.log(guestId);
+  return guestId;
 }
 
 // Получение рейтинга фильма для страницы поиска

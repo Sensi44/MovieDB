@@ -18,8 +18,8 @@ function ItemList(props) {
   const [error, setError] = useState(null);
   const refResults = useRef(items.results);
   const refPage = useRef(1);
-
-  const tr = 'total_results'; const tp = 'total_pages';
+  const tr = 'total_results';
+  const tp = 'total_pages';
 
   useEffect(() => {
     setIsLoaded(true);
@@ -27,8 +27,10 @@ function ItemList(props) {
     searchMovies(search, page)
       .then(
         (searchRes) => {
-          if (refResults.current !== searchRes[tr]
-          || refPage.current !== searchRes.page) {
+          if (
+            refResults.current !== searchRes[tr]
+            || refPage.current !== searchRes.page
+          ) {
             setItems((prevState) => ({
               ...prevState,
               cards: searchRes.results,
@@ -53,7 +55,7 @@ function ItemList(props) {
     item.rating = getRate(item.id, ratedMovies);
     return (
       <li key={`${item.id}-super-key`} className='movie_item'>
-        <Item item={item}/>
+        <Item item={item} />
       </li>
     );
   });
@@ -62,21 +64,21 @@ function ItemList(props) {
     <>
       <Offline>
         <div className='network-e'>
-        Internet connection problem, please check your network connection
+          Internet connection problem, please check your network connection
         </div>
       </Offline>
 
-      {console.log('render', 'item-list', items)}
-      <Counts pages={pages} results={results} page={page}/>
+      {/* {console.log('render', 'item-list', items)} */}
+      <Counts pages={pages} results={results} page={page} />
 
       {cards.length === 0 ? <div>Ничего не найдено, введите запрос</div> : null}
-      {(isLoaded && cards.length === 0) ? <Spiner /> : null}
+      {isLoaded && cards.length === 0 ? <Spiner /> : null}
       {error ? (
         <Error img={`${error}`} />
       ) : (
         <ul className='items_container'>{moviesList}</ul>
       )}
-      <Pages pages={pages} changePage={changePage}/>
+      <Pages pages={pages} changePage={changePage} />
     </>
   );
 }

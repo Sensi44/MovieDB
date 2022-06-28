@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
 import { Tabs } from 'antd';
+import cookie from 'cookie_js';
 import ItemList from '../Item-list';
 import Search from '../Search';
+import RateList from '../Rate-list';
 import { DataProvider } from '../Context/DataContext';
-import { getGenres, getRatedMovies } from '../../Services/service';
+import { getGenres, getRatedMovies, rateMovie, getGuestSessionId } from '../../Services/service';
 
 import './App.scss';
 
@@ -12,7 +14,7 @@ function App() {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState(' ');
   const [genres, setGenres] = useState([]);
-  const [ratedMovies, setRatedItems] = useState([]);
+  const [ratedMovies, setRatedItems] = useState({});
   const { TabPane } = Tabs;
 
   const changePage = (num) => setPage(num);
@@ -21,29 +23,51 @@ function App() {
   };
 
   useEffect(() => {
-    getRatedMovies()
-      .then((r) => {
-        setRatedItems(r.results);
-      });
-    getGenres()
-      .then((g) => {
-        setGenres(g.genres);
-      });
+    getRatedMovies(cookie.get('guest_session_id'), 1).then((r) => {
+      setRatedItems(r);
+    });
+    console.log(ratedMovies);
+    getGenres().then((g) => {
+      setGenres(g.genres);
+    });
   }, []);
 
+  // Эффект который будет срабатывать при оценке фильма, чтобы тот сразу на rated добавлялся
+  // useEffect(() => {
+  //   getRatedMovies(cookie.get('guest_session_id'), 1).then((r) => {
+  //     setRatedItems(r);
+  //   });
+  // }, [ratedMovies]);
+
+  // Запрос новой гостевой сессии если в куки ничего нет
+  useEffect(() => {
+    if (!cookie.get('guest_session_id')) {
+      getGuestSessionId()
+        .then((res) => cookie.set('guest_session_id', res.guest_session_id, { expires: 31 }));
+    }
+  }, []);
+
+  console.log(cookie.get('guest_session_id'));
   return (
-    <div className="container">
-      <Tabs defaultActiveKey="1" centered size="large" >
-        <TabPane tab="Search" key="1">
+    <div className='container'>
+      <Tabs defaultActiveKey='1' centered size='large'>
+        <TabPane tab='Search' key='1'>
           <Search num={3} num2={2} changeSearch={changeSearch} />
           <DataProvider genres={genres}>
-            <ItemList page={page} search={search} ratedMovies={ratedMovies} changePage={changePage}/>
+            <ItemList
+              page={page}
+              search={search}
+              ratedMovies={ratedMovies.results}
+              changePage={changePage}
+            />
           </DataProvider>
         </TabPane>
 
-        { console.log('render app') }
-        <TabPane tab="Rated" key="2">
-          <div>rated</div>
+        {console.log('render app')}
+        <TabPane tab='Rated' key='2'>
+          <DataProvider genres={genres}>
+            <RateList ratedMovies={ratedMovies} />
+          </DataProvider>
         </TabPane>
       </Tabs>
     </div>
