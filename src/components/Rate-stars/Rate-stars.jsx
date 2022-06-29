@@ -1,26 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Rate } from 'antd';
+import cookie from 'cookie_js';
+import { rateMovie } from '../../Services/service';
 
 import './Rate-stars.scss';
 
 function RateStars(props) {
-  const { voteAverage } = props;
-
+  const { rating, id } = props;
+  const token = cookie.get('guest_session_id');
   const test = (e) => {
-    console.log(e);
-    // Текущая кликнутая звезда
+    rateMovie(id, e, token);
   };
 
   return (
-   <>
-     <Rate allowHalf defaultValue={ voteAverage } onChange={test} count = {10} />
-     </>
+    <>
+      <Rate allowHalf defaultValue={rating} onChange={test} count={10}/>
+    </>
   );
 }
 
 RateStars.propTypes = {
-  voteAverage: PropTypes.number,
+  rating: PropTypes.number,
+  id: PropTypes.number,
 };
 
 export default RateStars;

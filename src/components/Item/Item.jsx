@@ -52,7 +52,7 @@ function Item(props) {
         </div>
 
         <div className='item_stars'>
-          <RateStars voteAverage = {rating}/>
+          <RateStars rating={rating} id={id}/>
         </div>
       </div>
     </div>

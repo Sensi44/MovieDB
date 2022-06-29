@@ -6,7 +6,7 @@ import ItemList from '../Item-list';
 import Search from '../Search';
 import RateList from '../Rate-list';
 import { DataProvider } from '../Context/DataContext';
-import { getGenres, getRatedMovies, rateMovie, getGuestSessionId } from '../../Services/service';
+import { getGenres, getRatedMovies, getGuestSessionId } from '../../Services/service';
 
 import './App.scss';
 
@@ -47,10 +47,18 @@ function App() {
     }
   }, []);
 
+  const changeTab = (e) => {
+    if (e === 'rate') {
+      getRatedMovies(cookie.get('guest_session_id'), 1).then((r) => {
+        setRatedItems(r);
+      });
+    }
+  };
+
   return (
     <div className='container'>
-      <Tabs defaultActiveKey='1' centered size='large'>
-        <TabPane tab='Search' key='1'>
+      <Tabs defaultActiveKey='1' onChange={changeTab} centered size='large'>
+        <TabPane tab='Search' key='search'>
           <Search num={3} num2={2} changeSearch={changeSearch} />
           <DataProvider genres={genres}>
             <ItemList
@@ -63,7 +71,7 @@ function App() {
         </TabPane>
 
         {console.log('render app')}
-        <TabPane tab='Rated' key='2'>
+        <TabPane tab='Rated' key='rate'>
           <DataProvider genres={genres}>
             <RateList ratedMovies={ratedMovies} />
           </DataProvider>
