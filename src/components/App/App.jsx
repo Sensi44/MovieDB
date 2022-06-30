@@ -12,32 +12,19 @@ import './App.scss';
 
 function App() {
   const [page, setPage] = useState(1);
+  const [ratePage, setRatePage] = useState(1);
   const [search, setSearch] = useState(' ');
   const [genres, setGenres] = useState([]);
   const [ratedMovies, setRatedItems] = useState({});
+  const [isLoaded, setIsLoaded] = useState(true);
+  const [error, setError] = useState(null);
   const { TabPane } = Tabs;
 
   const changePage = (num) => setPage(num);
+  const changeRatePage = (num) => setRatePage(num);
   const changeSearch = (str) => {
     setSearch(str);
   };
-
-  useEffect(() => {
-    getRatedMovies(cookie.get('guest_session_id'), 1).then((r) => {
-      setRatedItems(r);
-    });
-    console.log(ratedMovies);
-    getGenres().then((g) => {
-      setGenres(g.genres);
-    });
-  }, []);
-
-  // Эффект который будет срабатывать при оценке фильма, чтобы тот сразу на rated добавлялся
-  // useEffect(() => {
-  //   getRatedMovies(cookie.get('guest_session_id'), 1).then((r) => {
-  //     setRatedItems(r);
-  //   });
-  // }, [ratedMovies]);
 
   // Запрос новой гостевой сессии если в куки ничего нет
   useEffect(() => {
@@ -47,11 +34,34 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    getGenres().then((g) => {
+      setGenres(g.genres);
+    });
+  }, []);
+
+  // Эффект который будет срабатывать при переключении страниц
+  useEffect(() => {
+    getRatedMovies(cookie.get('guest_session_id'), ratePage).then((r) => {
+      setRatedItems(r);
+    });
+  }, [ratePage]);
+
   const changeTab = (e) => {
     if (e === 'rate') {
-      getRatedMovies(cookie.get('guest_session_id'), 1).then((r) => {
-        setRatedItems(r);
-      });
+      setIsLoaded(true);
+      setError(null);
+      getRatedMovies(cookie.get('guest_session_id'), ratePage)
+        .then(
+          (r) => {
+            setRatedItems(r);
+          },
+          (err) => setError(err)
+        )
+        .catch((serverError) => setError(serverError))
+        .finally(() => {
+          setIsLoaded(false);
+        });
     }
   };
 
@@ -73,7 +83,13 @@ function App() {
         {console.log('render app')}
         <TabPane tab='Rated' key='rate'>
           <DataProvider genres={genres}>
-            <RateList ratedMovies={ratedMovies} />
+            <RateList
+              ratedMovies={ratedMovies}
+              changeRatePage={changeRatePage}
+              page={ratePage}
+              isLoaded={isLoaded}
+              error={error}
+            />
           </DataProvider>
         </TabPane>
       </Tabs>

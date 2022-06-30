@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Offline } from 'react-detect-offline';
-import { getRate } from '../../Services/service';
 import Item from '../Item';
 import Pages from '../Pages';
 import Error from '../Item/Error';
@@ -12,12 +11,12 @@ import Counts from '../Counts';
 import './Rate-list.scss';
 
 function RateList(props) {
-  const { page, changePage, ratedMovies } = props;
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [error, setError] = useState(null);
+  const { page, changeRatePage, ratedMovies, isLoaded, error } = props;
   console.log(ratedMovies);
+  console.log(page);
 
-  const { results: cards, total_pages: pages, total_results: results } = ratedMovies;
+  const { results: cards = [], total_pages: pages, total_results: results } = ratedMovies;
+
   const moviesList = cards.map((item) => {
     item.load = isLoaded;
     return (
@@ -41,6 +40,7 @@ function RateList(props) {
       ) : (
         <ul className='items_container'>{moviesList}</ul>
       )}
+      <Pages pages={pages} changePage={changeRatePage} />
     </>
   );
 }
@@ -50,8 +50,10 @@ RateList.propTypes = {
   getPages: PropTypes.func,
   search: PropTypes.string,
   genres: PropTypes.array,
-  changePage: PropTypes.func,
+  changeRatePage: PropTypes.func,
   ratedMovies: PropTypes.object,
+  isLoaded: PropTypes.bool,
+  error: PropTypes.any,
 };
 
 export default RateList;

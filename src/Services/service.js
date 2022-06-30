@@ -25,10 +25,10 @@ export async function rateMovie(id, value, sessionId) {
 }
 
 // Получить список оценённых фильмов
-export function getRatedMovies(id, page) {
+export async function getRatedMovies(id, page) {
   const options = '&language=en-US&sort_by=created_at.asc';
   const url = `${baseURL}3/guest_session/${id}/rated/movies?api_key=${apiKey}&page=${page}${options}`;
-  const res = axios.get(url)
+  const res = await axios.get(url)
     .then((resp) => resp.data);
   return res;
 }
