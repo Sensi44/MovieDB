@@ -43,7 +43,7 @@ function RateList(props) {
       ) : (
         <ul className='items_container'>{moviesList}</ul>
       )}
-      <Pages pages={pages} changePage={changeRatePage} />
+      {moviesList.length === 0 ? null : <Pages pages={pages} changePage={changeRatePage} />}
     </>
   );
 }

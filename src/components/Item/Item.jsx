@@ -30,7 +30,7 @@ function Item(props) {
   };
 
   return (
-    <div className='movie_item'>
+    <>
       <div className='item_left'>
         { errorImg || spinner }
         { hasData ? img : null}
@@ -41,7 +41,7 @@ function Item(props) {
           <div className={getColor()}>{voteAverage}</div>
         </div>
 
-        <data className='item_data'>{dateCorrector(date)}{`  id - ${id}`}</data>
+        <data className='item_data'>{dateCorrector(date)}</data>
 
         <ul className='item_genres'>
           {setGenres(genresList, genres).map((genre) => <li key={genre} className='item_genre'>{genre}</li>)}
@@ -55,7 +55,7 @@ function Item(props) {
           <RateStars rating={rating} id={id}/>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

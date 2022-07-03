@@ -7,7 +7,7 @@ function Counts(props) {
     <>
       {results ? (
         <div className="counts">
-          <span>Фильмов найдено: </span>{results}&nbsp;&nbsp;&nbsp;
+          <span>Всего: </span>{results}&nbsp;&nbsp;&nbsp;
           <span>Страниц: </span>{pages}&nbsp;&nbsp;&nbsp;
           <span>Текущая страница: </span>{page}
         </div>

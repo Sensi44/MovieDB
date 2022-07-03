@@ -69,7 +69,7 @@ function ItemList(props) {
       </Offline>
       <Counts pages={pages} results={results} page={page} />
 
-      {cards.length === 0 ? <div>Ничего не найдено, введите запрос</div> : null}
+      {cards.length === 0 ? <div className="no_search">Ничего не найдено, введите запрос</div> : null}
       {isLoaded && cards.length === 0 ? <Spiner /> : null}
       {error ? (
         <Error img={`${error}`} />
