@@ -46,6 +46,10 @@ function App() {
     });
   }, []);
 
+
+
+
+
   // Эффект который будет срабатывать при переключении страниц
   useEffect(() => {
     getRatedMovies(cookie.get('guest_session_id'), ratePage).then((r) => {
