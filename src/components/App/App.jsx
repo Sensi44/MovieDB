@@ -21,6 +21,8 @@ function App() {
   const [error, setError] = useState(null);
   const { TabPane } = Tabs;
 
+
+
   const changePage = (num) => setPage(num);
   const changeRatePage = (num) => setRatePage(num);
   const changeSearch = (str) => setSearch(str);
