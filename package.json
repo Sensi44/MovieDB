@@ -1,5 +1,5 @@
 {
-  "name": "Movie-DB",
+  "name": "moviedb",
   "version": "1.1.0",
   "private": true,
   "dependencies": {
@@ -28,7 +28,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
-    "lint:fix": "eslint ./src --fix",
+    "lint:fix": "eslint ./src --fix --color",
     "format": "prettier --write .",
     "prepare": "husky install"
   },
@@ -77,7 +77,7 @@
     }
   },
   "lint-staged": {
-    "*.js": [
+    "*.jsx": [
       "npm run lint:fix",
       "git add"
     ]
