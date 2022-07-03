@@ -12,16 +12,17 @@ import './Rate-list.scss';
 
 function RateList(props) {
   const { page, changeRatePage, ratedMovies, isLoaded, error } = props;
-  console.log(ratedMovies);
-  console.log(page);
-
-  const { results: cards = [], total_pages: pages, total_results: results } = ratedMovies;
+  const {
+    results: cards = [],
+    total_pages: pages,
+    total_results: results,
+  } = ratedMovies;
 
   const moviesList = cards.map((item) => {
     item.load = isLoaded;
     return (
       <li key={`${item.id}-super-key`} className='movie_item'>
-        <Item item={item}/>
+        <Item item={item} />
       </li>
     );
   });
@@ -32,9 +33,11 @@ function RateList(props) {
           Internet connection problem, please check your network connection
         </div>
       </Offline>
-      <Counts pages={pages} results={results} page={page}/>
-      {cards.length === 0 ? <div>Нет оценённых фильмов, воспользуйтесь поиском</div> : null}
-      {(isLoaded && cards.length === 0) ? <Spiner /> : null}
+      <Counts pages={pages} results={results} page={page} />
+      {cards.length === 0 ? (
+        <div>Нет оценённых фильмов, воспользуйтесь поиском</div>
+      ) : null}
+      {isLoaded && cards.length === 0 ? <Spiner /> : null}
       {error ? (
         <Error img={`${error}`} />
       ) : (
