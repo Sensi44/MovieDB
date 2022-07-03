@@ -36,20 +36,20 @@
       "comma-dangle": ["error", {
         "arrays": "only-multiline",
         "objects": "only-multiline",
-        "imports": "only-multiline",
+        "imports": "always-multiline",
         "exports": "only-multiline",
         "functions": "only-multiline"
       }],
         "semi": "error",
         "no-plusplus": "off",
         "eol-last": "off",
-      "implicit-arrow-linebreak": ["error", "beside"],
-      "prettier/prettier": [
+        "implicit-arrow-linebreak": ["error", "beside"],
+        "prettier/prettier": [
         "error",
-        {
-          "endOfLine": "auto"
-        }
-      ],
+          {
+            "endOfLine": "auto"
+          }
+        ],
         "max-len": ["error", 120, {
             "ignoreUrls": true
         }],

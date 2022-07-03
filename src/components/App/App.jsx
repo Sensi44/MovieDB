@@ -21,7 +21,7 @@ function App() {
   const [search, setSearch] = useState(' ');
   const [genres, setGenres] = useState([]);
   const [ratedMovies, setRatedItems] = useState({});
-  const [isLoaded, setIsLoaded] = useState(true)
+  const [isLoaded, setIsLoaded] = useState(true);
   const [error, setError] = useState(null);
   const { TabPane } = Tabs;
 
@@ -65,7 +65,7 @@ function App() {
           (r) => {
             setRatedItems(r);
           },
-          (err) => setError(err),
+          (err) => setError(err)
         )
         .catch((serverError) => setError(serverError))
         .finally(() => {
