@@ -22,7 +22,7 @@ function App() {
   const [genres, setGenres] = useState([]);
   const [ratedMovies, setRatedItems] = useState({});
   const [isLoaded, setIsLoaded] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(null)
   const { TabPane } = Tabs;
 
   const changePage = (num) => setPage(num);
@@ -45,10 +45,6 @@ function App() {
       setGenres(g.genres);
     });
   }, []);
-
-
-
-
 
   // Эффект который будет срабатывать при переключении страниц
   useEffect(() => {
