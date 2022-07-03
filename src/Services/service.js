@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const baseURL = 'https://api.themoviedb.org/';
 const apiKey = 'cd6100594cd5dced56b923866a3e33d9';
-// const s = '495decee3693403628362cb80113fee20f76f0f';
 
 // Поиск по фильмам, основной
 export function searchMovies(search, page) {
@@ -20,7 +19,7 @@ export async function rateMovie(id, value, sessionId) {
   const options = {
     headers: { 'content-type': 'application/json' },
   };
-  const res = await axios.post(url, data, options).then((r) => console.log(r));
+  const res = await axios.post(url, data, options).then((r) => null);
   return res;
 }
 
@@ -42,7 +41,6 @@ export async function getGuestSessionId() {
     throw new Error(res.status);
   }
   const guestId = await res.json();
-  console.log(guestId);
   return guestId;
 }
 
@@ -93,19 +91,6 @@ export function truncate(str, maxlength) {
   return result;
 }
 
-// Обрезка строки
-export function truncateOverview(str, maxlength) {
-  let result = str.slice(0, maxlength).split(' ');
-  if (str.length < maxlength) {
-    result = result.splice(0, result.length).join(' ');
-  } else {
-    result = result.splice(0, result.length - 1).join(' ');
-    result = result.includes('.' || ',' || '?' || ',', result.length - 1)
-      ? `${result.slice(0, result.length - 1)}…` : `${result}…`;
-  }
-  return result;
-}
-
 // Преобразование даты (переделай на библиотечную функцию)
 export function dateCorrector(date) {
   if (!date) return 'Нет даты';
@@ -121,28 +106,30 @@ export function dateCorrector(date) {
   return `${month || '--'} ${(day.toString().length < 2) ? `0${day}` : day}, ${year}`;
 }
 
-// Пустая функция
-// eslint-disable-next-line consistent-return
-export async function getImg(posterPath) {
-  try {
-    const loadResult = await fetch(`https://image.tmdb.org/t/p/w500${posterPath}`);
-    return loadResult;
-  } catch (e) {
-    console.log(e);
-  }
-}
+// Обрезка строки
+// export function truncateOverview(str, maxlength) {
+//   let result = str.slice(0, maxlength).split(' ');
+//   if (str.length < maxlength) {
+//     result = result.splice(0, result.length).join(' ');
+//   } else {
+//     result = result.splice(0, result.length - 1).join(' ');
+//     result = result.includes('.' || ',' || '?' || ',', result.length - 1)
+//       ? `${result.slice(0, result.length - 1)}…` : `${result}…`;
+//   }
+//   return result;
+// }
 
 // Поиск по фильмам, старый
-export async function searchMoviesOld(search, page) {
-  try {
-    const tempSearch = search.split(' ').join('%');
-    const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=cd6100594cd5dced56b923866a3e33d9&
-  language=en-US&query=${tempSearch}&page=${page}&include_adult=false`);
-    if (!res.ok) {
-      throw new Error(`Could not fetch Movies , received ${res.status}`);
-    }
-    return await res.json();
-  } catch (e) {
-    throw new Error(`${e.message} ${e.name}`);
-  }
-}
+// export async function searchMoviesOld(search, page) {
+//   try {
+//     const tempSearch = search.split(' ').join('%');
+//     const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=cd6100594cd5dced56b923866a3e33d9&
+//   language=en-US&query=${tempSearch}&page=${page}&include_adult=false`);
+//     if (!res.ok) {
+//       throw new Error(`Could not fetch Movies , received ${res.status}`);
+//     }
+//     return await res.json();
+//   } catch (e) {
+//     throw new Error(`${e.message} ${e.name}`);
+//   }
+// }

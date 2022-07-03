@@ -22,9 +22,7 @@ function App() {
 
   const changePage = (num) => setPage(num);
   const changeRatePage = (num) => setRatePage(num);
-  const changeSearch = (str) => {
-    setSearch(str);
-  };
+  const changeSearch = (str) => setSearch(str);
 
   // Запрос новой гостевой сессии если в куки ничего нет
   useEffect(() => {
@@ -47,6 +45,7 @@ function App() {
     });
   }, [ratePage]);
 
+  // При переключении вкладок
   const changeTab = (e) => {
     if (e === 'rate') {
       setIsLoaded(true);
@@ -80,7 +79,6 @@ function App() {
           </DataProvider>
         </TabPane>
 
-        {console.log('render app')}
         <TabPane tab='Rated' key='rate'>
           <DataProvider genres={genres}>
             <RateList

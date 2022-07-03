@@ -23,7 +23,7 @@
         "jsx-a11y"
     ],
     "rules": {
-        "no-console": "off", //error на продакшн
+        "no-console": "error", //error на продакшн
         "linebreak-style": 0,
         "comma-dangle": ["error", {
             "arrays": "always-multiline",

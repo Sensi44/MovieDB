@@ -67,8 +67,6 @@ function ItemList(props) {
           Internet connection problem, please check your network connection
         </div>
       </Offline>
-
-      {/* {console.log('render', 'item-list', items)} */}
       <Counts pages={pages} results={results} page={page} />
 
       {cards.length === 0 ? <div>Ничего не найдено, введите запрос</div> : null}
