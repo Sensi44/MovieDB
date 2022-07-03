@@ -31,7 +31,7 @@
     ],
     "parser": "@babel/eslint-parser",
     "rules": {
-        "no-console": "error", //error на продакшн
+        "no-console": "off", //error на продакшн
         "linebreak-style": 0,
       "comma-dangle": ["error", {
         "arrays": "only-multiline",

@@ -31,6 +31,8 @@ function App() {
     setSearch(str);
   };
 
+  console.log('aa');
+
   // Запрос новой гостевой сессии если в куки ничего нет
   useEffect(() => {
     if (!cookie.get('guest_session_id')) {
