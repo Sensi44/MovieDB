@@ -9,6 +9,7 @@ import { DataProvider } from '../Context/DataContext';
 import { getGenres, getRatedMovies, getGuestSessionId } from '../../Services/service';
 
 import './App.scss';
+import './Media.scss';
 
 function App() {
   const [page, setPage] = useState(1);
