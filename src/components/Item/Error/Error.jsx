@@ -5,17 +5,12 @@ import { Alert } from 'antd';
 function Error(props) {
   const { img } = props;
 
-  const onClose = (e) => {
-    console.log('Error notification was closed.', e);
-  };
-
   return (
     <Alert
       message={img}
       description="Ошибка получения данных с сервера"
       type="error"
       closable
-      onClose={onClose}
     />
   );
 }
