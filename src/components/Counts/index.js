@@ -1,3 +1,3 @@
-import Spin from './Counts.jsx';
+import Spin from './Counts';
 
 export default Spin;

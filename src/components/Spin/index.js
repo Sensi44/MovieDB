@@ -1,3 +1,3 @@
-import Spin from './Spiner.jsx';
+import Spin from './Spiner';
 
 export default Spin;

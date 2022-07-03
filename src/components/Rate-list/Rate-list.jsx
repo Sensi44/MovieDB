@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { Offline } from 'react-detect-offline';
+
 import Item from '../Item';
 import Pages from '../Pages';
 import Error from '../Item/Error';
@@ -43,7 +43,9 @@ function RateList(props) {
       ) : (
         <ul className='items_container'>{moviesList}</ul>
       )}
-      {moviesList.length === 0 ? null : <Pages pages={pages} changePage={changeRatePage} />}
+      {moviesList.length === 0 ? null : (
+        <Pages pages={pages} changePage={changeRatePage} />
+      )}
     </>
   );
 }

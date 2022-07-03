@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Tabs } from 'antd';
 import './TopTabs.scss';
 
@@ -11,11 +10,11 @@ function TopTabs() {
   };
 
   return (
-    <Tabs defaultActiveKey="1" centered onChange={handleTab}>
-      <TabPane tab="Tab 1" key="1">
+    <Tabs defaultActiveKey='1' centered onChange={handleTab}>
+      <TabPane tab='Tab 1' key='1'>
         Content of Tab Pane 1
       </TabPane>
-      <TabPane tab="Tab 2" key="2">
+      <TabPane tab='Tab 2' key='2'>
         Content of Tab Pane 2
       </TabPane>
     </Tabs>

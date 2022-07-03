@@ -6,10 +6,12 @@ function Img(props) {
 
   return (
     <>
-      <img className='item_img'
-           src={`https://image.tmdb.org/t/p/w500${posterPath}`}
-           alt={title}
-           title={title} />
+      <img
+        className='item_img'
+        src={`https://image.tmdb.org/t/p/w500${posterPath}`}
+        alt={title}
+        title={title}
+      />
     </>
   );
 }

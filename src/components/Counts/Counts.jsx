@@ -6,10 +6,13 @@ function Counts(props) {
   return (
     <>
       {results ? (
-        <div className="counts">
-          <span>Всего: </span>{results}&nbsp;&nbsp;&nbsp;
-          <span>Страниц: </span>{pages}&nbsp;&nbsp;&nbsp;
-          <span>Текущая страница: </span>{page}
+        <div className='counts'>
+          <span>Всего: </span>
+          {results}&nbsp;&nbsp;&nbsp;
+          <span>Страниц: </span>
+          {pages}&nbsp;&nbsp;&nbsp;
+          <span>Текущая страница: </span>
+          {page}
         </div>
       ) : null}
     </>

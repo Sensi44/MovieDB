@@ -11,16 +11,17 @@ function Search({ changeSearch }) {
   }, 400);
 
   return (
-    <div className="search_container">
-      <label htmlFor="searchInput">
-      <input
-        defaultValue=""
-        id="searchInput"
-        name="searchInput"
-        className="search_input"
-        type="text" placeholder="Type to search..."
-        onChange={handleToggle}
-      />
+    <div className='search_container'>
+      <label htmlFor='searchInput'>
+        <input
+          defaultValue=''
+          id='searchInput'
+          name='searchInput'
+          className='search_input'
+          type='text'
+          placeholder='Type to search...'
+          onChange={handleToggle}
+        />
       </label>
     </div>
   );

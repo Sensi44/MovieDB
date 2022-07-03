@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Rate } from 'antd';
 import cookie from 'cookie_js';
+
 import { rateMovie } from '../../Services/service';
 
 import './Rate-stars.scss';
@@ -15,7 +16,7 @@ function RateStars(props) {
 
   return (
     <>
-      <Rate allowHalf defaultValue={rating} onChange={test} count={10}/>
+      <Rate allowHalf defaultValue={rating} onChange={test} count={10} />
     </>
   );
 }

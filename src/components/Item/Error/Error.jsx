@@ -8,8 +8,8 @@ function Error(props) {
   return (
     <Alert
       message={img}
-      description="Ошибка получения данных с сервера"
-      type="error"
+      description='Ошибка получения данных с сервера'
+      type='error'
       closable
     />
   );

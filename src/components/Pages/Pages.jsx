@@ -29,9 +29,7 @@ function Pages(props) {
   );
 }
 
-Pages.defaultProps = {
-
-};
+Pages.defaultProps = {};
 
 Pages.propTypes = {
   changePage: PropTypes.func,

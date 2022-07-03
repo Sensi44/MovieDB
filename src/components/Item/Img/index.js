@@ -1,3 +1,3 @@
-import Img from './Img.jsx';
+import Img from './Img';
 
 export default Img;

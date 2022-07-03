@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-
 import { Offline } from 'react-detect-offline';
+
 import { searchMovies, getRate } from '../../Services/service';
 import Item from '../Item';
 import Pages from '../Pages';
@@ -28,8 +28,8 @@ function ItemList(props) {
       .then(
         (searchRes) => {
           if (
-            refResults.current !== searchRes[tr]
-            || refPage.current !== searchRes.page
+            refResults.current !== searchRes[tr] ||
+            refPage.current !== searchRes.page
           ) {
             setItems((prevState) => ({
               ...prevState,
@@ -69,7 +69,9 @@ function ItemList(props) {
       </Offline>
       <Counts pages={pages} results={results} page={page} />
 
-      {cards.length === 0 ? <div className="no_search">Ничего не найдено, введите запрос</div> : null}
+      {cards.length === 0 ? (
+        <div className='no_search'>Ничего не найдено, введите запрос</div>
+      ) : null}
       {isLoaded && cards.length === 0 ? <Spiner /> : null}
       {error ? (
         <Error img={`${error}`} />

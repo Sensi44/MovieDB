@@ -1,3 +1,3 @@
-import TopTabs from './TopTabs.jsx';
+import TopTabs from './TopTabs';
 
 export default TopTabs;

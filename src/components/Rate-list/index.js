@@ -1,3 +1,3 @@
-import RateList from './Rate-list.jsx';
+import RateList from './Rate-list';
 
 export default RateList;

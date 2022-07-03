@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-
 import { Tabs } from 'antd';
 import cookie from 'cookie_js';
+
 import ItemList from '../Item-list';
 import Search from '../Search';
 import RateList from '../Rate-list';
 import { DataProvider } from '../Context/DataContext';
 import {
   getGenres,
-  getRatedMovies
-  getGuestSessionId
+  getRatedMovies,
+  getGuestSessionId,
 } from '../../Services/service';
 
 import './App.scss';
