@@ -6,7 +6,11 @@ import ItemList from '../Item-list';
 import Search from '../Search';
 import RateList from '../Rate-list';
 import { DataProvider } from '../Context/DataContext';
-import { getGenres, getRatedMovies, getGuestSessionId } from '../../Services/service';
+import {
+  getGenres,
+  getRatedMovies,
+  getGuestSessionId,
+} from '../../Services/service';
 
 import './App.scss';
 import './Media.scss';
@@ -21,17 +25,18 @@ function App() {
   const [error, setError] = useState(null);
   const { TabPane } = Tabs;
 
-
-
   const changePage = (num) => setPage(num);
   const changeRatePage = (num) => setRatePage(num);
-  const changeSearch = (str) => setSearch(str);
+  const changeSearch = (str) => {
+    setSearch(str);
+  };
 
   // Запрос новой гостевой сессии если в куки ничего нет
   useEffect(() => {
     if (!cookie.get('guest_session_id')) {
-      getGuestSessionId()
-        .then((res) => cookie.set('guest_session_id', res.guest_session_id, { expires: 31 }));
+      getGuestSessionId().then((res) => {
+        cookie.set('guest_session_id', res.guest_session_id, { expires: 31 });
+      });
     }
   }, []);
 
@@ -58,7 +63,7 @@ function App() {
           (r) => {
             setRatedItems(r);
           },
-          (err) => setError(err)
+          (err) => setError(err),
         )
         .catch((serverError) => setError(serverError))
         .finally(() => {

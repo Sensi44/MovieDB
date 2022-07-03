@@ -3,5 +3,11 @@
   "tabWidth": 2,
   "semi": true,
   "singleQuote": true,
-  "jsxSingleQuote": true
+  "jsxSingleQuote": true,
+  "quoteProps": "preserve",
+  "arrowParens": "always",
+  "bracketSpacing": true,
+  "proseWrap": "never",
+  "htmlWhitespaceSensitivity": "strict",
+  "endOfLine": "auto"
 }

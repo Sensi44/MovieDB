@@ -8,6 +8,7 @@
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
+        "plugin:prettier/recommended",
         "airbnb/base",
         "react-app", "plugin:jsx-a11y/recommended"
     ],
@@ -16,25 +17,39 @@
             "jsx": true
         },
         "ecmaVersion": 8,
-        "sourceType": "module"
+        "sourceType": "module",
+        "requireConfigFile": false,
+        "babelOptions": {
+          "presets": ["@babel/preset-react"]
+        }
     },
     "plugins": [
         "react",
-        "jsx-a11y"
+        "jsx-a11y",
+        "prettier",
+        "import"
     ],
+    "parser": "@babel/eslint-parser",
     "rules": {
         "no-console": "error", //error на продакшн
         "linebreak-style": 0,
-        "comma-dangle": ["error", {
-            "arrays": "always-multiline",
-            "objects": "always-multiline",
-            "imports": "never",
-            "exports": "never",
-            "functions": "never"
-        }],
+      "comma-dangle": ["error", {
+        "arrays": "only-multiline",
+        "objects": "only-multiline",
+        "imports": "only-multiline",
+        "exports": "only-multiline",
+        "functions": "only-multiline"
+      }],
         "semi": "error",
         "no-plusplus": "off",
         "eol-last": "off",
+      "implicit-arrow-linebreak": ["error", "beside"],
+      "prettier/prettier": [
+        "error",
+        {
+          "endOfLine": "auto"
+        }
+      ],
         "max-len": ["error", 120, {
             "ignoreUrls": true
         }],

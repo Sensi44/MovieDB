@@ -27,16 +27,14 @@ export async function rateMovie(id, value, sessionId) {
 export async function getRatedMovies(id, page) {
   const options = '&language=en-US&sort_by=created_at.asc';
   const url = `${baseURL}3/guest_session/${id}/rated/movies?api_key=${apiKey}&page=${page}${options}`;
-  const res = await axios.get(url)
-    .then((resp) => resp.data);
+  const res = await axios.get(url).then((resp) => resp.data);
   return res;
 }
 
 // Получить новую гостевую сессию (если в кукисах ничего нет)
 export async function getGuestSessionId() {
-  const res = await fetch(
-    `${baseURL}3/authentication/guest_session/new?api_key=${apiKey}`
-  );
+  const url = `${baseURL}3/authentication/guest_session/new?api_key=${apiKey}`;
+  const res = await fetch(url);
   if (!res.ok) {
     throw new Error(res.status);
   }
@@ -80,14 +78,15 @@ export function truncate(str, maxlength) {
   let result = str.slice(0, maxlength).split(' ');
   if (result.length < 9) {
     result = result.splice(0, result.length).join(' ');
-    return (result.length <= maxlength) ? result : `${result}…`;
+    return result.length <= maxlength ? result : `${result}…`;
   }
   if (str.length < maxlength) {
     return result.splice(0, result.length).join(' ');
   }
   result = result.splice(0, result.length - 1).join(' ');
   result = result.includes('.' || ',' || '?' || ',', result.length - 1)
-    ? `${result.slice(0, result.length - 1)}…` : `${result}…`;
+    ? `${result.slice(0, result.length - 1)}…`
+    : `${result}…`;
   return result;
 }
 
@@ -97,13 +96,24 @@ export function dateCorrector(date) {
   const temp = date.split('-');
   const year = temp[0];
   const monthsArray = [
-    'January', 'February', 'March', 'April',
-    'May', 'June', 'July', 'August',
-    'September', 'October', 'November', 'December',
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
   const month = monthsArray[+temp[1]];
   const day = +temp[2];
-  return `${month || '--'} ${(day.toString().length < 2) ? `0${day}` : day}, ${year}`;
+  return `${month || '--'} ${
+    day.toString().length < 2 ? `0${day}` : day
+  }, ${year}`;
 }
 
 // Обрезка строки
