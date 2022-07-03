@@ -8,8 +8,8 @@ import RateList from '../Rate-list';
 import { DataProvider } from '../Context/DataContext';
 import {
   getGenres,
-  getRatedMovies,
-  getGuestSessionId,
+  getRatedMovies
+  getGuestSessionId
 } from '../../Services/service';
 
 import './App.scss';
