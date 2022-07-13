@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Rate } from 'antd';
 import cookie from 'cookie_js';
 
-import { rateMovie } from '../../Services/service';
+import { rateMovie } from '../../Api';
 
 import './Rate-stars.scss';
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Offline } from 'react-detect-offline';
+import { Alert } from 'antd';
 
 import Item from '../Item';
 import Pages from '../Pages';
-import Error from '../Item/Error';
 import Spiner from '../Spin';
 import Counts from '../Counts';
 
@@ -39,7 +39,12 @@ function RateList(props) {
       ) : null}
       {isLoaded && cards.length === 0 ? <Spiner /> : null}
       {error ? (
-        <Error img={`${error}`} />
+        <Alert
+          message={`${error}`}
+          description='Ошибка получения данных с сервера'
+          type='error'
+          closable
+        />
       ) : (
         <ul className='items_container'>{moviesList}</ul>
       )}

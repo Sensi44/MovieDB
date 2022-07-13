@@ -2,18 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Tabs } from 'antd';
 import cookie from 'cookie_js';
 
-import ItemList from '../Item-list';
+import ItemList from '../ItemList';
 import Search from '../Search';
-import RateList from '../Rate-list';
-import { DataProvider } from '../Context/DataContext';
-import {
-  getGenres,
-  getRatedMovies,
-  getGuestSessionId,
-} from '../../Services/service';
+import RateList from '../RateList';
+import { DataProvider } from '../DataContext';
+import { getGenres, getRatedMovies, getGuestSessionId } from '../../Api';
 
 import './App.scss';
-import './Media.scss';
 
 function App() {
   const [page, setPage] = useState(1);
@@ -31,9 +26,6 @@ function App() {
     setSearch(str);
   };
 
-  console.log('aa');
-
-  // Запрос новой гостевой сессии если в куки ничего нет
   useEffect(() => {
     if (!cookie.get('guest_session_id')) {
       getGuestSessionId().then((res) => {
@@ -48,14 +40,12 @@ function App() {
     });
   }, []);
 
-  // Эффект который будет срабатывать при переключении страниц
   useEffect(() => {
     getRatedMovies(cookie.get('guest_session_id'), ratePage).then((r) => {
       setRatedItems(r);
     });
   }, [ratePage]);
 
-  // При переключении вкладок
   const changeTab = (e) => {
     if (e === 'rate') {
       setIsLoaded(true);

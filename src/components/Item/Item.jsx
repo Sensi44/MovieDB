@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import { truncate, dateCorrector, setGenres } from '../../Services/service';
-import RateStars from '../Rate-stars';
+import setGenres from '../../Utils/setGenres';
+import truncate from '../../Utils/truncate';
+import dateCorrector from '../../Utils/dateCorrector';
+import RateStars from '../RateStars';
 import Spiner from '../Spin';
-import image from '../../img/no-image.jpg';
-import { GenresContext } from '../Context/DataContext';
-
-import Img from './Img';
+import image from '../../assets/img/no-image.jpg';
+import { GenresContext } from '../DataContext';
 
 import './Item.scss';
 
@@ -26,7 +26,14 @@ function Item(props) {
   const genresList = useContext(GenresContext);
 
   const spinner = load ? <Spiner /> : null;
-  const img = !load ? <Img posterPath={posterPath} title={title} /> : null;
+  const img = !load ? (
+    <img
+      className='item_img'
+      src={`https://image.tmdb.org/t/p/w500${posterPath}`}
+      alt={title}
+      title={title}
+    />
+  ) : null;
   const errorImg =
     posterPath === null ? (
       <img className='no-image' src={image} alt='Нет доступных изображений' />
